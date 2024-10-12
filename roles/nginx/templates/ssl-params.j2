@@ -1,0 +1,12 @@
+ssl_certificate {{ '/etc/nginx/' + SSL_CERT_NAME }};
+ssl_certificate_key {{ '/etc/nginx/' + SSL_KEY_NAME }};
+ssl_dhparam /etc/nginx/{{ DH_NAME }};
+ssl_protocols TLSv1.3;
+ssl_prefer_server_ciphers on;
+ssl_ciphers EECDH+AESGCM:EDH+AESGCM;
+ssl_ecdh_curve secp384r1;
+ssl_session_timeout  10m;
+ssl_session_cache shared:SSL:10m;
+ssl_session_tickets off;
+ssl_stapling off;
+ssl_stapling_verify on;

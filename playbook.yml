@@ -3,6 +3,12 @@
   hosts: vpn_server
   become: true
 
+  vars_files:
+    - vars.yml
+
   roles:
     - role: geerlingguy.docker
       tags: docker
+
+    - role: nginx
+      tags: nginx
