@@ -1,38 +1,56 @@
-Role Name
+Nginx role
 =========
 
-A brief description of the role goes here.
+Install and config webserver.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Docker is installed or a Docker Ansible role is applied (see [Docker Installation Guide](https://docs.docker.com/engine/install/)). This is required if you choose to use the Dockerized installation of Nginx.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yml
+---
+DOMAIN_NAME: example.com  # Nginx server domain
+
+SSL_CERT_NAME: cert.crt  # SSL Cert name
+SSL_KEY_NAME: cert.key  # SSL Key name
+DH_NAME: dhparam.pem  # DH group name
+
+SSL_CERT_PATH: ./assets/{{ SSL_CERT_NAME }}  # SSL Cert path
+SSL_KEY_PATH: ./assets/{{ SSL_KEY_NAME }}  # SSL Key path
+DH_PATH: ./assets/{{ DH_NAME }}  # DH group path
+
+NGINX_DOCKER_PATH: /opt/nginx_docker # Dockerized Nginx Path
+NGINX_VERSION_DOCKER: latest # Nginx version in Docker
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```yml
+dependencies:
+  - role: docker  # Optional
+```
+
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yml
+  - hosts: servers
+    roles:
+       - role: nginx
+```
 
 License
 -------
 
-BSD
+GPL
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Grell Gragham](https://github.com/ggragham)
