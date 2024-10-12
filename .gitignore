@@ -1,0 +1,7 @@
+.vagrant/
+*.retry
+.DS_Store
+
+inventory.yml
+inventory.ini
+*vars.yml
