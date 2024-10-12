@@ -2,6 +2,10 @@
 *.retry
 .DS_Store
 
+assets/*
+!assets/README.md
+
 inventory.yml
 inventory.ini
 *vars.yml
+!default.vars.yml
