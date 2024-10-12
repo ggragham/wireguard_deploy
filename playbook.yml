@@ -1,0 +1,8 @@
+---
+- name: Deploy WireGuard VPN
+  hosts: vpn_server
+  become: true
+
+  roles:
+    - role: geerlingguy.docker
+      tags: docker
