@@ -1,38 +1,76 @@
-Role Name
+Authelia Role
 =========
 
-A brief description of the role goes here.
+Install and config Authelia authentication service.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Docker is installed or a Docker Ansible role is applied (see [Docker Installation Guide](https://docs.docker.com/engine/install/)).
+- NGINX is installed or an NGINX Ansible role is applied (see [NGINX Installation Guide](https://nginx.org/en/docs/install.html)).
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yml
+AUTHELIA_INSTALL: true  # Enable or disable Authelia installation.
+AUTHELIA_DOCKER_PATH: /opt/authelia_docker  # Authelia path.
+AUTHELIA_VERSION_DOCKER: latest  # Authelia Docker image version.
+
+AUTHELIA_THEME: dark  # light, dark, grey, auto.
+AUTHELIA_LOG_FORMAT: text  # text, json.
+AUTHELIA_TOTP_ISSUER: authelia.com  # Name displayed in the Authenticator application.
+AUTHELIA_TOTP_ALGORITHM: sha1  # sha1, sha256, sha512.
+AUTHELIA_TOTP_DIGITS: 6  # 6, 8.
+AUTHELIA_TOTP_PERIOD: 30  # period in seconds a totp is valid for.
+AUTHELIA_JWT_SECRET: example_of_jwt_secret  # secret key used to sign and verify the JWT.
+AUTHELIA_NTP_PROVIDER: time.cloudflare.com  # address of the NTP server.
+AUTHELIA_NTP_DISABLE_FAILURE: 'false'  # true, false.
+AUTHELIA_SESSION_SECRET: example_of_session_secret  # secret to encrypt the session data.
+AUTHELIA_SESSION_DOMAIN: example.com  # The domain to protect.
+AUTHELIA_SESSION_URL: auth.example.com  # URI of the portal to redirect users.
+AUTHELIA_STORAGE_ENCRYTPTION_KEY: example_of_storage_encryption_key  # ecryption key used to encrypt data in db.
+
+AUTHELIA_DOMAIN_LIST:  # List of domains to protect by Authelia.
+  - link1.examle.com
+  - link2.examle.com
+  - link3.examle.com
+
+AUTHELIA_USERNAME: user  # Authelia auth username.
+AUTHELIA_PASSWORD: password  # Authelia auth password.
+```
+
+Note
+----
+To generate JWT tokens or any keys and secrets, you can use the following command:
+
+```bash
+head /dev/random | tr -dc 'A-Za-z0-9_' | head -c 32
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```yml
+dependencies:
+  - role: nginx
+```
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yml
+  - hosts: servers
+    roles:
+       - role: authelia
+```
 
 License
 -------
 
-BSD
+GPL
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Grell Gragham](https://github.com/ggragham)
