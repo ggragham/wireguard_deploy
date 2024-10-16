@@ -12,3 +12,6 @@
 
     - role: nginx
       tags: nginx
+
+    - role: authelia
+      tags: authelia
