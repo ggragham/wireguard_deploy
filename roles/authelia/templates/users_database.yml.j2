@@ -1,0 +1,13 @@
+---
+###############################################################
+#                         Users Database                      #
+###############################################################
+
+users:
+  {{ AUTHELIA_USERNAME }}:
+    disabled: false
+    displayname: "{{ AUTHELIA_USERNAME }}"
+    password: {{ AUTHELIA_USER_PASSWORD_HASH }}
+    groups:
+      - admins
+      - dev

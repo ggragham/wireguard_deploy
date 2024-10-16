@@ -1,0 +1,15 @@
+---
+services:
+  {{ AUTHELIA_DOCKER_SERVICE_NAME }}:
+    image: docker.io/authelia/authelia:{{ AUTHELIA_VERSION_DOCKER }}
+    container_name: {{ AUTHELIA_DOCKER_CONTAINER_NAME }}
+    restart: unless-stopped
+    networks:
+      - authelia_network
+    volumes:
+      - {{ AUTHELIA_CONFIG_PATH }}:/config
+
+networks:
+  authelia_network:
+    name: {{ DOCKER_NETWORK_NAME }}
+    external: true

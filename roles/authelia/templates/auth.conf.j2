@@ -1,0 +1,30 @@
+server {
+    server_name {{ AUTHELIA_SESSION_URL }};
+    listen 80;
+    return 301 https://$server_name$request_uri;
+
+    access_log /var/log/nginx/authelia-access.log;
+    error_log /var/log/nginx/authelia-error.log;
+}
+
+server {
+    server_name {{ AUTHELIA_SESSION_URL }};
+    listen 443 ssl;
+
+    set $upstream http://authelia:9091;
+
+    location / {
+        include /etc/nginx/snippets/proxy.conf;
+        proxy_pass $upstream;
+    }
+
+    location = /api/verify {
+        proxy_pass $upstream;
+    }
+
+    location /api/authz/ {
+        proxy_pass $upstream;
+    }
+
+    include /etc/nginx/snippets/ssl-params.conf;
+}

@@ -1,0 +1,114 @@
+---
+###############################################################################
+##                           Authelia Configuration  ##
+###############################################################################
+
+theme: {{ AUTHELIA_THEME }}
+default_2fa_method: totp
+
+server:
+  address: tcp://0.0.0.0:9091/
+  asset_path: /config/assets/
+
+log:
+  level: debug
+  # Format the logs are written as: json, text.
+  format: {{ AUTHELIA_LOG_FORMAT }}
+  file_path: /config/authelia.log
+
+totp:
+  issuer: '{{ AUTHELIA_TOTP_ISSUER }}'
+  ## The TOTP algorithm to use: sha1, sha, sha512
+  algorithm: {{ AUTHELIA_TOTP_ALGORITHM }}
+  ## The number of digits a user has to input. Must either be 6 or 8.
+  digits: {{ AUTHELIA_TOTP_DIGITS }}
+  period: {{ AUTHELIA_TOTP_PERIOD }}
+
+identity_validation:
+  reset_password:
+    jwt_secret: '{{ AUTHELIA_JWT_SECRET }}'
+
+ntp:
+  address: 'udp://{{ AUTHELIA_NTP_PROVIDER }}:123'
+  disable_failure: {{ AUTHELIA_NTP_DISABLE_FAILURE }}
+
+authentication_backend:
+  file:
+    path: /config/users_database.yml
+    password:
+      algorithm: argon2
+      # argon2:
+        # variant: 'argon2id'
+        # iterations: 3
+        # memory: 65536
+        # parallelism: 4
+        # key_length: 32
+        # salt_length: 16
+
+access_control:
+  default_policy: deny
+  # networks:
+    # - name: 'internal'
+    #   networks:
+        # - '10.10.0.0/16'
+        # - '192.168.2.0/24'
+    # - name: 'VPN'
+    #   networks: '10.9.0.0/16'
+  rules:
+{% for domain in AUTHELIA_DOMAIN_LIST %}
+    - domain: "{{ domain }}"
+      policy: two_factor
+{% endfor %}
+
+session:
+  secret: '{{ AUTHELIA_SESSION_SECRET }}'
+  cookies:
+  - domain: '{{ AUTHELIA_SESSION_DOMAIN }}'
+    name: authelia_session
+    authelia_url: 'https://{{ AUTHELIA_SESSION_URL }}'
+    same_site: 'lax'
+    inactivity: 5m
+    expiration: 1h
+    remember_me: 1d
+  name: authelia_session
+  same_site: lax
+  inactivity: 5m
+  expiration: 1h
+  remember_me: 1d
+
+  # redis:
+    # host: '127.0.0.1'
+    # port: 6379
+    ## Use a unix socket instead
+    # host: '/var/run/redis/redis.sock'
+    # username: 'authelia'
+    # password: 'authelia'
+    # database_index: 0
+    # maximum_active_connections: 8
+    # minimum_idle_connections: 0
+
+regulation:
+  max_retries: 3
+  find_time: 2m
+  ban_time: 5m
+
+storage:
+  encryption_key: '{{ AUTHELIA_STORAGE_ENCRYTPTION_KEY}}'
+  local:
+    path: /config/db.sqlite3
+
+notifier:
+  filesystem:
+    filename: /config/notfication.txt
+
+  # smtp:
+    # address: 'smtp://127.0.0.1:25'
+    # timeout: '5 seconds'
+    # username: 'test'
+    # password: 'password'
+    # sender: 'Authelia <admin@example.com>'
+    # identifier: 'localhost'
+    # subject: '[Authelia] {title}'
+    # startup_check_address: 'test@authelia.com'
+    # disable_require_tls: false
+    # disable_html_emails: false

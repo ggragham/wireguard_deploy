@@ -1,0 +1,88 @@
+---
+- name: Install and config authelia
+  block:
+    - name: Create Authelia directory struct
+      file:
+        path: '{{ directory }}'
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      loop_control:
+        loop_var: directory
+      loop:
+        - '{{ AUTHELIA_DOCKER_PATH }}'
+        - '{{ AUTHELIA_CONFIG_PATH }}'
+
+    - name: Gen hash from password
+      command: docker run authelia/authelia:{{ AUTHELIA_VERSION_DOCKER }} authelia crypto hash generate argon2 --password '{{ AUTHELIA_PASSWORD }}'
+      register: hash_output
+      no_log: true
+
+    - name: Extract Digest from output
+      set_fact:
+        AUTHELIA_USER_PASSWORD_HASH: "{{ hash_output.stdout | regex_search('Digest: (.+)', '\\1') | trim | regex_replace('^[\\[\"(]+|[\\]\"(]+$', '') }}"
+      no_log: true
+
+    - name: Apply Authelia configs
+      template:
+        src: '{{ authelia_config }}.j2'
+        dest: '{{ AUTHELIA_CONFIG_PATH }}/{{ authelia_config }}'
+        owner: root
+        group: root
+        mode: 0644
+      loop_control:
+        loop_var: authelia_config
+      loop:
+        - configuration.yml
+        - users_database.yml
+
+    - name: Apply Nginx configs
+      block:
+        - name: Apply Authelia Nginx snippets
+          copy:
+            src: '{{ authelia_snippet }}'
+            dest: '{{ NGINX_SNIPPETS_PATH }}/{{ authelia_snippet }}'
+            owner: root
+            group: root
+            mode: 0644
+          loop_control:
+            loop_var: authelia_snippet
+          loop:
+            - authelia-authrequest.conf
+            - authelia-location.conf
+            - proxy.conf
+        - name: Apply Authelia Nginx config
+          template:
+            src: '{{ authelia_nginx_config }}.j2'
+            dest: '{{ NGINX_SITES_ENABLED_PATH }}/{{ authelia_nginx_config }}'
+            owner: root
+            group: root
+            mode: 0644
+          loop_control:
+            loop_var: authelia_nginx_config
+          loop:
+            - auth.conf
+
+    - name: Apply Authelia Docker Compose template
+      template:
+        src: docker-compose.yml.j2
+        dest: '{{ AUTHELIA_DOCKER_PATH }}/docker-compose.yml'
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Start Docker Compose
+      shell: docker compose down && docker compose up -d
+      args:
+        chdir: '{{ service_path }}'
+      loop_control:
+        loop_var: service_path
+      loop:
+        - '{{ AUTHELIA_DOCKER_PATH }}'
+        - '{{ NGINX_DOCKER_PATH }}'
+      become: true
+
+  when: AUTHELIA_INSTALL
+  become: true
+  tags: authelia
