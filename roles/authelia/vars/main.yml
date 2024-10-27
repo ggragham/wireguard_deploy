@@ -1,6 +1,7 @@
 ---
-AUTHELIA_CONFIG_PATH: '{{ AUTHELIA_DOCKER_PATH }}/config'  # Authelia config path
-AUTHELIA_DOCKER_SERVICE_NAME: authelia  # Authelia Docker service name
-AUTHELIA_DOCKER_CONTAINER_NAME: authelia_container  # Authelia Docker container name
-NGINX_SNIPPETS_PATH: '{{ NGINX_DOCKER_PATH }}/snippets'  # Nginx snippets path
-NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Nginx enabled sites path
+AUTHELIA_DOCKER_SERVICE_NAME: authelia  # Authelia Docker service name.
+AUTHELIA_DOCKER_CONTAINER_NAME: authelia_container  # Authelia Docker container name.
+AUTHELIA_DOCKER_PATH: /opt/authelia_docker  # Authelia Docker installation path.
+AUTHELIA_CONFIG_PATH: '{{ AUTHELIA_DOCKER_PATH }}/config'  # Authelia config path.
+NGINX_SNIPPETS_PATH: '{{ NGINX_DOCKER_PATH }}/snippets'  # Nginx snippets path.
+NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Nginx enabled sites path.

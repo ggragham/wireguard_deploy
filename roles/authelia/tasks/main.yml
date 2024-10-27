@@ -13,15 +13,16 @@
       loop:
         - '{{ AUTHELIA_DOCKER_PATH }}'
         - '{{ AUTHELIA_CONFIG_PATH }}'
+      become: true
 
-    - name: Gen hash from password
-      command: docker run authelia/authelia:{{ AUTHELIA_VERSION_DOCKER }} authelia crypto hash generate argon2 --password '{{ AUTHELIA_PASSWORD }}'
-      register: hash_output
-      no_log: true
-
-    - name: Extract Digest from output
-      set_fact:
-        AUTHELIA_USER_PASSWORD_HASH: "{{ hash_output.stdout | regex_search('Digest: (.+)', '\\1') | trim | regex_replace('^[\\[\"(]+|[\\]\"(]+$', '') }}"
+    - name: Gen password hash
+      block:
+        - name: Gen hash from password
+          local_action: command docker run authelia/authelia:{{ AUTHELIA_VERSION_DOCKER }} authelia crypto hash generate argon2 --password '{{ AUTHELIA_PASSWORD }}'
+          register: hash_output
+        - name: Extract Digest from output
+          set_fact:
+            AUTHELIA_USER_PASSWORD_HASH: "{{ hash_output.stdout | regex_search('Digest: (.+)', '\\1') | trim | regex_replace('^[\\[\"(]+|[\\]\"(]+$', '') }}"
       no_log: true
 
     - name: Apply Authelia configs
@@ -36,6 +37,7 @@
       loop:
         - configuration.yml
         - users_database.yml
+      become: true
 
     - name: Apply Nginx configs
       block:
@@ -63,6 +65,7 @@
             loop_var: authelia_nginx_config
           loop:
             - auth.conf
+      become: true
 
     - name: Apply Authelia Docker Compose template
       template:
@@ -71,6 +74,7 @@
         owner: root
         group: root
         mode: 0644
+      become: true
 
     - name: Start Docker Compose
       shell: docker compose down && docker compose up -d
@@ -81,8 +85,6 @@
       loop:
         - '{{ AUTHELIA_DOCKER_PATH }}'
         - '{{ NGINX_DOCKER_PATH }}'
-      become: true
 
   when: AUTHELIA_INSTALL
-  become: true
   tags: authelia

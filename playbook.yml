@@ -1,7 +1,6 @@
 ---
 - name: Deploy WireGuard VPN
   hosts: vpn_server
-  become: true
 
   vars_files:
     - vars.yml

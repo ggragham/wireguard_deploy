@@ -1,7 +1,7 @@
 ---
 services:
   {{ NGINX_DOCKER_SERVICE_NAME }}:
-    image: nginxinc/nginx-unprivileged:{{ NGINX_VERSION_DOCKER }}
+    image: nginxinc/nginx-unprivileged:{{ NGINX_DOCKER_IMAGE_VERSION }}
     container_name: {{ NGINX_DOCKER_CONTAINER_NAME }}
     restart: always
     user: {{ NGINX_USER }}
@@ -10,7 +10,6 @@ services:
       - {{ NGINX_DOCKER_CONF_PATH }}/default.conf:/etc/nginx/conf.d/default.conf:ro
       - {{ NGINX_SNIPPETS_PATH }}:/etc/nginx/snippets:ro
       - {{ NGINX_SITES_ENABLED_PATH }}:/etc/nginx/sites-enabled:ro
-      - {{ DEFAULT_WWW_PATH }}/index.html:/var/www/html/index.html:ro
       - {{ NGINX_SSL_CERT_PATH }}:/etc/nginx/{{ SSL_CERT_NAME }}:ro
       - {{ NGINX_SSL_KEY_PATH }}:/etc/nginx/{{ SSL_KEY_NAME }}:ro
       - {{ NGINX_DH_PATH }}:/etc/nginx/{{ DH_NAME }}:ro
@@ -22,5 +21,5 @@ services:
 
 networks:
   nginx_network:
-    name: {{ DOCKER_NETWORK_NAME }}
+    name: {{ DOCKER_SERVICES_NETWORK_NAME }}
     external: true
