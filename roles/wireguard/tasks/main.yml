@@ -1,0 +1,62 @@
+---
+- name: Install WireGuard VPN
+  block:
+    - name: Create WireGuard directory struct
+      file:
+        path: '{{ directory }}'
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      loop_control:
+        loop_var: directory
+      loop:
+        - '{{ WG_DOCKER_PATH }}'
+      become: true
+
+    - name: Gen password hash
+      block:
+        - name: Run Docker command
+          local_action: command docker run ghcr.io/wg-easy/wg-easy wgpw {{ WG_UI_PASSWORD }}
+          register: docker_hash_output
+        - name: Extract password hash
+          set_fact:
+            dirty_password_hash: "{{ docker_hash_output.stdout | regex_search(\"PASSWORD_HASH='(.*?)'\", '\\1') }}"
+        - name: Clean up password hash
+          set_fact:
+            WG_UI_PASSWORD_HASH: "{{ dirty_password_hash | replace(\"'\", '') | replace(\"$\", \"$$\") | trim('[]\"') }}"
+      no_log: true
+
+    - name: Apply Wireguard Nginx config
+      template:
+        src: '{{ wireguard_nginx_config }}.j2'
+        dest: '{{ NGINX_SITES_ENABLED_PATH }}/{{ wireguard_nginx_config }}'
+        owner: root
+        group: root
+        mode: 0644
+      loop_control:
+        loop_var: wireguard_nginx_config
+      loop:
+        - wireguard.conf
+      become: true
+
+    - name: Apply Wireguard Docker Compose template
+      template:
+        src: docker-compose.yml.j2
+        dest: '{{ WG_DOCKER_PATH }}/docker-compose.yml'
+        owner: root
+        group: root
+        mode: 0644
+      become: true
+
+    - name: Start Docker Compose
+      shell: docker compose down && docker compose up -d
+      args:
+        chdir: '{{ service_path }}'
+      loop_control:
+        loop_var: service_path
+      loop:
+        - '{{ WG_DOCKER_PATH }}'
+        - '{{ NGINX_DOCKER_PATH }}'
+
+  tags: wireguard

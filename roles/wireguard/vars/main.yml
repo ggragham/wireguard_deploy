@@ -1,0 +1,7 @@
+---
+SERVER_HOST: '{{ ansible_host }}'
+NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Path for Nginx config to proxy WireGuard UI.
+WG_DOCKER_PATH: /opt/wireguard_docker  # WireGuard docker installation path.
+WG_DOCKER_SERVICE_NAME: wg-easy  # WireGuard Docker service name.
+WG_DOCKER_CONTAINER_NAME: wg_easy_container  # WireGuard container name.
+WG_UI_PORT: 51821  # TCP port for WireGuard Web UI.

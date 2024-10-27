@@ -1,0 +1,44 @@
+services:
+  {{ WG_DOCKER_SERVICE_NAME }}:
+    image: ghcr.io/wg-easy/wg-easy:{{ WG_DOCKER_IMAGE_VERSION }}
+    container_name: {{ WG_DOCKER_CONTAINER_NAME }}
+    restart: unless-stopped
+    environment:
+      - LANG={{ WG_LANG }}
+      - WG_HOST={{ SERVER_HOST }}
+      # Optional:
+      - PASSWORD_HASH={{ WG_UI_PASSWORD_HASH }}
+      - PORT={{ WG_UI_PORT}}
+      - WG_PORT={{ WG_PORT }}
+      # - WG_CONFIG_PORT=92820
+      - WG_DEFAULT_ADDRESS={{ WG_DEFAULT_ADDRESS }}
+      - WG_DEFAULT_DNS={{ WG_DEFAULT_DNS }}
+      # - WG_MTU=1420
+      # - WG_ALLOWED_IPS=192.168.15.0/24, 10.0.1.0/24
+      # - WG_PERSISTENT_KEEPALIVE=25
+      # - WG_PRE_UP=echo "Pre Up" > /etc/wireguard/pre-up.txt
+      # - WG_POST_UP=echo "Post Up" > /etc/wireguard/post-up.txt
+      # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
+      # - WG_POST_DOWN=echo "Post Down" > /etc/wireguard/post-down.txt
+      - UI_TRAFFIC_STATS={{ WG_UI_TRAFFIC_STATS }}
+      - UI_CHART_TYPE={{ WG_UI_CHART_TYPE }} # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
+    networks:
+      - vpn_network
+      - services_network
+    ports:
+      - "{{ WG_PORT }}:{{ WG_PORT }}/udp"
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - {{ WG_DOCKER_PATH }}/config:/etc/wireguard
+
+networks:
+  vpn_network:
+    driver: bridge
+  services_network:
+    name: {{ DOCKER_NETWORK_NAME }}
+    external: true

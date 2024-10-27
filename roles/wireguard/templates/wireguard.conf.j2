@@ -1,0 +1,39 @@
+server {
+    server_name {{ DOMAIN_NAME }};
+    listen 80;
+    return 301 https://$host$request_uri;
+
+    access_log /var/log/nginx/wireguard-access.log;
+    error_log /var/log/nginx/wireguard-error.log;
+}
+
+server {
+    listen 443 ssl;
+    server_name {{ DOMAIN_NAME }};
+
+    set $upstream http://wg-easy:51821;
+
+    location / {
+{% if AUTHELIA_INSTALL %}
+        include /etc/nginx/snippets/proxy.conf;
+        include /etc/nginx/snippets/authelia-authrequest.conf;
+{% endif %}
+
+        proxy_pass $upstream;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    access_log /var/log/nginx/wireguard-access.log;
+    error_log /var/log/nginx/wireguard-error.log;
+
+    include /etc/nginx/snippets/headers.conf;
+    include /etc/nginx/snippets/ssl-params.conf;
+
+{% if AUTHELIA_INSTALL %}
+    include /etc/nginx/snippets/authelia-location.conf;
+{% endif %}
+
+}
