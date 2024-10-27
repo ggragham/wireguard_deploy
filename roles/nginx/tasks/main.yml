@@ -63,18 +63,6 @@
             group: root
             mode: 0644
 
-        - name: Apply nginx config
-          template:
-            src: nginx_default.j2
-            dest: '{{ NGINX_SITES_ENABLED_PATH }}/default'
-            mode: 0644
-
-    - name: Deploy homepage
-      template:
-        src: index.html
-        dest: '{{ DEFAULT_WWW_PATH }}/index.html'
-        mode: 0644
-
     - name: Copy ssl cert
       copy:
         src: '{{ SSL_CERT_PATH }}'
