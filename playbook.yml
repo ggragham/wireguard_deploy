@@ -14,3 +14,6 @@
 
     - role: authelia
       tags: authelia
+
+    - role: wireguard
+      tags: wireguard
