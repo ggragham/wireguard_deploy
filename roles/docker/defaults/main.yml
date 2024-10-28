@@ -1,0 +1,2 @@
+---
+DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
