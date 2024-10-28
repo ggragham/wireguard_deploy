@@ -13,18 +13,16 @@ Role Variables
 
 ```yml
 ---
-DOMAIN_NAME: example.com  # Nginx server domain
+DOMAIN_NAME: example.com  # Nginx server domain.
+DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
+NGINX_DOCKER_IMAGE_VERSION: latest  # Nginx Docker image version.
 
-SSL_CERT_NAME: cert.crt  # SSL Cert name
-SSL_KEY_NAME: cert.key  # SSL Key name
-DH_NAME: dhparam.pem  # DH group name
-
-SSL_CERT_PATH: ./assets/{{ SSL_CERT_NAME }}  # SSL Cert path
-SSL_KEY_PATH: ./assets/{{ SSL_KEY_NAME }}  # SSL Key path
-DH_PATH: ./assets/{{ DH_NAME }}  # DH group path
-
-NGINX_DOCKER_PATH: /opt/nginx_docker # Dockerized Nginx Path
-NGINX_VERSION_DOCKER: latest # Nginx version in Docker
+SSL_CERT_NAME: cert.crt  # SSL Cert name.
+SSL_KEY_NAME: cert.key  # SSL Key name.
+DH_NAME: dhparam.pem  # DH key name.
+SSL_CERT_PATH: ./assets/{{ SSL_CERT_NAME }}  # SSL Cert path.
+SSL_KEY_PATH: ./assets/{{ SSL_KEY_NAME }}  # SSL Key path.
+DH_PATH: ./assets/{{ DH_NAME }}  # DH key path.
 ```
 
 Dependencies
@@ -32,7 +30,7 @@ Dependencies
 
 ```yml
 dependencies:
-  - role: docker  # Optional
+  - role: docker
 ```
 
 
