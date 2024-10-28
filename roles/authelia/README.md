@@ -51,6 +51,7 @@ Dependencies
 
 ```yml
 dependencies:
+  - role: docker
   - role: nginx
 ```
 
