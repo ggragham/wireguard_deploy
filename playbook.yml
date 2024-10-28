@@ -6,7 +6,7 @@
     - vars.yml
 
   roles:
-    - role: geerlingguy.docker
+    - role: docker
       tags: docker
 
     - role: nginx
