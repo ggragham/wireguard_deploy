@@ -1,38 +1,57 @@
-Role Name
+WireGuard Role
 =========
 
-A brief description of the role goes here.
+Install and config WireGuard VPN server.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Docker is installed or a Docker Ansible role is applied (see [Docker Installation Guide](https://docs.docker.com/engine/install/)).
+- NGINX is installed or an NGINX Ansible role is applied (see [NGINX Installation Guide](https://nginx.org/en/docs/install.html)).
+- Authelia is installed or an Authelia Ansible role is applied (optional, for added security features; see [Authelia Installation Guide](https://authelia.com/integration/prologue/get-started/)).
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yml
+DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
+WG_DOCKER_IMAGE_VERSION: latest  # WireGuard Docker image version.
+
+WG_PORT: 51820  # The public UDP port of VPN server.
+WG_DEFAULT_ADDRESS: 10.8.0.x  # Clients IP address range.
+WG_DEFAULT_DNS: 1.1.1.1, 1.0.0.1  # DNS server clients will use.
+
+WG_LANG: en  # WebUI language.
+WG_UI_PASSWORD: foobar123  # WebUI Password.
+WG_UI_TRAFFIC_STATS: true  # Enable detailed RX / TX client stats in WebUI.
+WG_UI_CHART_TYPE: 0 # Type of chart for displaying statistics; 0 Charts disabled, 1 # Line chart, 2 # Area chart, 3  # Bar chart.
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```yml
+dependencies:
+  - role: docker
+  - role: nginx
+  - role: authelia  # Optional.
+```
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yml
+  - hosts: servers
+    roles:
+       - role: wireguard
+```
 
 License
 -------
 
-BSD
+GPL
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Grell Gragham](https://github.com/ggragham)
