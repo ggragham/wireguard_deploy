@@ -13,9 +13,9 @@ Role Variables
 --------------
 
 ```yml
+DOMAIN_NAME: example.com  # Nginx server domain.
 AUTHELIA_INSTALL: true  # Enable or disable Authelia installation.
-AUTHELIA_DOCKER_PATH: /opt/authelia_docker  # Authelia path.
-AUTHELIA_VERSION_DOCKER: latest  # Authelia Docker image version.
+AUTHELIA_DOCKER_IMAGE_VERSION: latest  # Authelia Docker image version.
 
 AUTHELIA_THEME: dark  # light, dark, grey, auto.
 AUTHELIA_LOG_FORMAT: text  # text, json.
@@ -27,14 +27,12 @@ AUTHELIA_JWT_SECRET: example_of_jwt_secret  # secret key used to sign and verify
 AUTHELIA_NTP_PROVIDER: time.cloudflare.com  # address of the NTP server.
 AUTHELIA_NTP_DISABLE_FAILURE: 'false'  # true, false.
 AUTHELIA_SESSION_SECRET: example_of_session_secret  # secret to encrypt the session data.
-AUTHELIA_SESSION_DOMAIN: example.com  # The domain to protect.
-AUTHELIA_SESSION_URL: auth.example.com  # URI of the portal to redirect users.
+AUTHELIA_SESSION_DOMAIN: '{{ DOMAIN_NAME }}'  # The domain to protect.
+AUTHELIA_SESSION_URL: auth.{{ DOMAIN_NAME }}  # URI of the portal to redirect users.
 AUTHELIA_STORAGE_ENCRYTPTION_KEY: example_of_storage_encryption_key  # ecryption key used to encrypt data in db.
 
 AUTHELIA_DOMAIN_LIST:  # List of domains to protect by Authelia.
-  - link1.examle.com
-  - link2.examle.com
-  - link3.examle.com
+  - '{{ DOMAIN_NAME }}'
 
 AUTHELIA_USERNAME: user  # Authelia auth username.
 AUTHELIA_PASSWORD: password  # Authelia auth password.
