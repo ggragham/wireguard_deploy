@@ -1,7 +1,7 @@
 ---
 services:
   {{ AUTHELIA_DOCKER_SERVICE_NAME }}:
-    image: docker.io/authelia/authelia:{{ AUTHELIA_VERSION_DOCKER }}
+    image: docker.io/authelia/authelia:{{ AUTHELIA_DOCKER_IMAGE_VERSION }}
     container_name: {{ AUTHELIA_DOCKER_CONTAINER_NAME }}
     restart: unless-stopped
     networks:

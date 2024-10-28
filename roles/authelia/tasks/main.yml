@@ -18,7 +18,7 @@
     - name: Gen password hash
       block:
         - name: Gen hash from password
-          local_action: command docker run authelia/authelia:{{ AUTHELIA_VERSION_DOCKER }} authelia crypto hash generate argon2 --password '{{ AUTHELIA_PASSWORD }}'
+          local_action: command docker run authelia/authelia:{{ AUTHELIA_DOCKER_IMAGE_VERSION }} authelia crypto hash generate argon2 --password '{{ AUTHELIA_PASSWORD }}'
           register: hash_output
         - name: Extract Digest from output
           set_fact:

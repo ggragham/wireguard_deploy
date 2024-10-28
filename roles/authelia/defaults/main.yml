@@ -1,7 +1,7 @@
 ---
 DOMAIN_NAME: example.com  # Nginx server domain.
 AUTHELIA_INSTALL: true  # Enable or disable Authelia installation.
-AUTHELIA_VERSION_DOCKER: latest  # Authelia Docker image version.
+AUTHELIA_DOCKER_IMAGE_VERSION: latest  # Authelia Docker image version.
 
 AUTHELIA_THEME: dark  # light, dark, grey, auto.
 AUTHELIA_LOG_FORMAT: text  # text, json.
