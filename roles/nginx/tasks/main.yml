@@ -1,28 +1,6 @@
 ---
 - name: Install and config webserver
   block:
-    - name: Config UFW
-      block:
-        - name: Check UFW installed
-          shell:
-            cmd: |
-              ufw --version >/dev/null
-              echo "$?"
-          register: ufw_return
-
-        - name: Allow HTTP(S)
-          ufw:
-            rule: allow
-            port: '{{ item }}'
-            state: reloaded
-          with_items:
-            - 80
-            - 443
-          when: ufw_return.stdout=="0"
-
-      become: true
-      tags: firewall
-
     - name: Install nginx
       block:
         - name: Create Nginx directory struct
