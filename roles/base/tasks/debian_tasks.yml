@@ -1,0 +1,22 @@
+---
+- block:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python3 || apt update && apt install -y python3-minimal
+      changed_when: false
+
+    - name: Update deb-based system
+      apt:
+        name: '*'
+        state: latest
+        update_cache: true
+
+    - name: Install necessary packages
+      apt:
+        name:
+          - bash-completion
+          - curl
+          - firewalld
+          - vim
+        state: latest
+        update_cache: true
+  become: true
