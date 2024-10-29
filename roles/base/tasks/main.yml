@@ -1,3 +1,5 @@
 ---
 - include_tasks: debian_tasks.yml
   when: ansible_os_family == 'Debian'
+
+- include_tasks: ssh.yml
