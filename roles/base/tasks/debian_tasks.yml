@@ -4,6 +4,15 @@
       raw: test -e /usr/bin/python3 || apt update && apt install -y python3-minimal
       changed_when: false
 
+    - name: Uninstall garbage
+      apt:
+        name:
+          - nano
+          - ufw
+        state: absent
+        purge: true
+        autoremove: true
+
     - name: Update deb-based system
       apt:
         name: '*'
