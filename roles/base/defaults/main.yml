@@ -1,3 +1,4 @@
 ---
 USERNAME: '{{ ansible_user }}'
 SSH_PORT: 22
+NETWORK_INTERFACE: eth0

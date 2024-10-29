@@ -1,0 +1,29 @@
+---
+- block:
+    - name: Create default zone with target drop
+      firewalld:
+        zone: default
+        target: DROP
+        permanent: true
+        state: present
+
+    - name: Allow SSH on default zone
+      firewalld:
+        zone: default
+        port: '{{ SSH_PORT }}/tcp'
+        permanent: true
+        state: enabled
+
+    - name: Add interface to the default zone
+      firewalld:
+        zone: default
+        interface: '{{ NETWORK_INTERFACE }}'
+        permanent: true
+        state: enabled
+
+    - name: Set default zone to default
+      command: firewall-cmd --set-default-zone=default
+
+    - name: Reload firewalld to apply changes
+      command: firewall-cmd --reload
+  become: true
