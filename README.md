@@ -1,4 +1,15 @@
-#  WireGuard VPN Server Deployment
+<h1 align="center">WireGuard VPN Server Deployment</h1>
+
+<p align="center">
+  <a href="https://www.wireguard.com/"><img src="https://img.shields.io/badge/wireguard-%2388171A.svg?style=for-the-badge&logo=wireguard&logoColor=white" alt="wireguard"></a>
+  <a href="https://www.ansible.com/"><img src="https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible" alt="ansible"></a>
+  <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="docker"></a>
+  <a href="https://www.debian.org/"><img src="https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white" alt="debian"></a>
+  <br>
+  <img src="https://img.shields.io/github/last-commit/ggragham/wg_deploy" alt="last commit">
+  <img src="https://img.shields.io/github/repo-size/ggragham/wg_deploy" alt="repo size">
+  <a href="https://opensource.org/license/GPL-3.0"><img src="https://img.shields.io/github/license/ggragham/wg_deploy.svg" alt="license"></a>
+</p>
 
 Deploy Your Own Secure WireGuard VPN Server the Easy Way.
 
