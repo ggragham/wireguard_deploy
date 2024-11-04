@@ -1,4 +1,14 @@
 ---
+- name: Install firewalld
+  block:
+    - name: Install firewalld to Debian
+      apt:
+        name: firewalld
+        state: latest
+        update_cache: true
+      when: ansible_os_family == 'Debian'
+  become: true
+
 - block:
     - name: Create default zone with target drop
       firewalld:

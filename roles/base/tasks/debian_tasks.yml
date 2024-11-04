@@ -24,7 +24,6 @@
         name:
           - bash-completion
           - curl
-          - firewalld
           - vim
         state: latest
         update_cache: true
