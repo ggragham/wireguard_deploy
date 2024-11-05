@@ -10,7 +10,13 @@
   become: true
 
 - block:
-    - name: Create default zone with target drop
+    - name: Create default zone
+      firewalld:
+        zone: default
+        state: present
+        permanent: true
+
+    - name: Set DROP target to default zone
       firewalld:
         zone: default
         target: DROP
