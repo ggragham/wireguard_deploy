@@ -37,9 +37,21 @@
         permanent: true
         state: enabled
 
-    - name: Set default zone to default
-      command: firewall-cmd --set-default-zone=default
-
     - name: Reload firewalld to apply changes
       command: firewall-cmd --reload
+
+    - name: Set default zone to default
+      block:
+        - name: Check current default firewalld zone
+          command: firewall-cmd --get-default-zone
+          register: current_zone
+
+        - name: Set default zone if not already set
+          command: firewall-cmd --set-default-zone=default
+          when: current_zone.stdout != "default"
+
+        - name: Reload firewalld initially to apply other changes
+          command: firewall-cmd --reload
+          when: current_zone.stdout != "default"
+
   become: true
