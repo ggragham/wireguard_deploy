@@ -29,7 +29,7 @@
             state: restarted
 
       become: true
-      # when: not docker_installed.stat.exists
+      when: not docker_installed.stat.exists
 
     - name: Create Docker network
       docker_network:
