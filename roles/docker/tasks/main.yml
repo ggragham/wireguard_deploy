@@ -28,6 +28,11 @@
             enabled: true
             state: restarted
 
+        # Ignore the warning about reset_connection.
+        # It functions correctly in this context.
+        - name: Apply user changes
+          meta: reset_connection
+
       become: true
       when: not docker_installed.stat.exists
 
