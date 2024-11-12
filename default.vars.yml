@@ -1,0 +1,60 @@
+---
+# Base role vars
+SSH_PORT: 22  # Port for SSH access.
+NETWORK_INTERFACE: eth0  # Default network interface.
+
+FAIL2BAN_BANTIME: 5m  # Duration for which IPs are banned.
+FAIL2BAN_FINDTIME: 3m  # Time window to consider failed login attempts.
+FAIL2BAN_MAXRETRY: 5  # Number of allowed failed login attempts before banning IP.
+
+# Docker role vars
+DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
+
+# Nginx role vars
+DOMAIN_NAME: example.com  # Nginx server domain.
+NGINX_DOCKER_IMAGE_VERSION: latest  # Nginx Docker image version.
+
+SSL_CERT_NAME: cert.crt  # SSL Cert name.
+SSL_KEY_NAME: cert.key  # SSL Key name.
+DH_NAME: dhparam.pem  # DH key name.
+SSL_CERT_PATH: ./assets/{{ SSL_CERT_NAME }}  # SSL Cert path.
+SSL_KEY_PATH: ./assets/{{ SSL_KEY_NAME }}  # SSL Key path.
+DH_PATH: ./assets/{{ DH_NAME }}  # DH key path.
+
+# Authelia role vars
+---
+DOMAIN_NAME: example.com  # Nginx server domain.
+AUTHELIA_INSTALL: true  # Enable or disable Authelia installation.
+AUTHELIA_DOCKER_IMAGE_VERSION: latest  # Authelia Docker image version.
+
+AUTHELIA_THEME: dark  # light, dark, grey, auto.
+AUTHELIA_LOG_FORMAT: text  # text, json.
+AUTHELIA_TOTP_ISSUER: authelia.com  # Name displayed in the Authenticator application.
+AUTHELIA_TOTP_ALGORITHM: sha1  # sha1, sha256, sha512.
+AUTHELIA_TOTP_DIGITS: 6  # 6, 8.
+AUTHELIA_TOTP_PERIOD: 30  # period in seconds a totp is valid for.
+AUTHELIA_JWT_SECRET: example_of_jwt_secret  # secret key used to sign and verify the JWT.
+AUTHELIA_NTP_PROVIDER: time.cloudflare.com  # address of the NTP server.
+AUTHELIA_NTP_DISABLE_FAILURE: 'false'  # true, false.
+AUTHELIA_SESSION_SECRET: example_of_session_secret  # secret to encrypt the session data.
+AUTHELIA_SESSION_DOMAIN: '{{ DOMAIN_NAME }}'  # The domain to protect.
+AUTHELIA_SESSION_URL: auth.{{ DOMAIN_NAME }}  # URI of the portal to redirect users.
+AUTHELIA_STORAGE_ENCRYTPTION_KEY: example_of_storage_encryption_key  # ecryption key used to encrypt data in db.
+
+AUTHELIA_DOMAIN_LIST:  # List of domains to protect by Authelia.
+  - '{{ DOMAIN_NAME }}'
+
+AUTHELIA_USERNAME: user  # Authelia auth username.
+AUTHELIA_PASSWORD: password  # Authelia auth password.
+
+# Wiregurad role vars
+WG_DOCKER_IMAGE_VERSION: latest  # WireGuard Docker image version.
+
+WG_PORT: 51820  # The public UDP port of VPN server.
+WG_DEFAULT_ADDRESS: 10.8.0.x  # Clients IP address range.
+WG_DEFAULT_DNS: 1.1.1.1, 1.0.0.1  # DNS server clients will use.
+
+WG_LANG: en  # WebUI language.
+WG_UI_PASSWORD: foobar123  # WebUI Password.
+WG_UI_TRAFFIC_STATS: true  # Enable detailed RX / TX client stats in WebUI.
+WG_UI_CHART_TYPE: 0 # Type of chart for displaying statistics; 0 Charts disabled, 1 # Line chart, 2 # Area chart, 3  # Bar chart.
