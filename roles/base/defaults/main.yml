@@ -1,8 +1,7 @@
 ---
-USERNAME: '{{ ansible_user }}'
-SSH_PORT: 22
-NETWORK_INTERFACE: eth0
+SSH_PORT: 22  # Port for SSH access.
+NETWORK_INTERFACE: eth0  # Default network interface.
 
-FAIL2BAN_BANTIME: 5m
-FAIL2BAN_FINDTIME: 3m
-FAIL2BAN_MAXRETRY: 5
+FAIL2BAN_BANTIME: 5m  # Duration for which IPs are banned.
+FAIL2BAN_FINDTIME: 3m  # Time window to consider failed login attempts.
+FAIL2BAN_MAXRETRY: 5  # Number of allowed failed login attempts before banning IP.
