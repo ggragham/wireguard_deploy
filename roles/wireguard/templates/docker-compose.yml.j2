@@ -4,24 +4,24 @@ services:
     container_name: {{ WG_DOCKER_CONTAINER_NAME }}
     restart: unless-stopped
     environment:
-      - LANG={{ WG_LANG }}
-      - WG_HOST={{ SERVER_HOST }}
+      LANG: {{ WG_LANG }}
+      WG_HOST: {{ SERVER_HOST }}
       # Optional:
-      - PASSWORD_HASH={{ WG_UI_PASSWORD_HASH }}
-      - PORT={{ WG_UI_PORT}}
-      - WG_PORT={{ WG_PORT }}
-      # - WG_CONFIG_PORT=92820
-      - WG_DEFAULT_ADDRESS={{ WG_DEFAULT_ADDRESS }}
-      - WG_DEFAULT_DNS={{ WG_DEFAULT_DNS }}
-      # - WG_MTU=1420
-      # - WG_ALLOWED_IPS=192.168.15.0/24, 10.0.1.0/24
-      # - WG_PERSISTENT_KEEPALIVE=25
-      # - WG_PRE_UP=echo "Pre Up" > /etc/wireguard/pre-up.txt
-      # - WG_POST_UP=echo "Post Up" > /etc/wireguard/post-up.txt
-      # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
-      # - WG_POST_DOWN=echo "Post Down" > /etc/wireguard/post-down.txt
-      - UI_TRAFFIC_STATS={{ WG_UI_TRAFFIC_STATS }}
-      - UI_CHART_TYPE={{ WG_UI_CHART_TYPE }} # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
+      PASSWORD_HASH: {{ WG_UI_PASSWORD_HASH }}
+      PORT: {{ WG_UI_PORT}}
+      WG_PORT: {{ WG_PORT }}
+      # WG_CONFIG_PORT: 92820
+      WG_DEFAULT_ADDRESS: {{ WG_DEFAULT_ADDRESS }}
+      WG_DEFAULT_DNS: {{ WG_DEFAULT_DNS }}
+      # WG_MTU: 1420
+      # WG_ALLOWED_IPS: 192.168.15.0/24, 10.0.1.0/24
+      # WG_PERSISTENT_KEEPALIVE: 25
+      # WG_PRE_UP: echo "Pre Up" > /etc/wireguard/pre-up.txt
+      # WG_POST_UP: echo "Post Up" > /etc/wireguard/post-up.txt
+      # WG_PRE_DOWN: echo "Pre Down" > /etc/wireguard/pre-down.txt
+      # WG_POST_DOWN: echo "Post Down" > /etc/wireguard/post-down.txt
+      UI_TRAFFIC_STATS: {{ WG_UI_TRAFFIC_STATS }}
+      UI_CHART_TYPE: {{ WG_UI_CHART_TYPE }} # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
     networks:
       - vpn_network
       - services_network
