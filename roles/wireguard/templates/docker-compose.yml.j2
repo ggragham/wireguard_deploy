@@ -23,7 +23,6 @@ services:
       UI_TRAFFIC_STATS: {{ WG_UI_TRAFFIC_STATS }}
       UI_CHART_TYPE: {{ WG_UI_CHART_TYPE }} # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
     networks:
-      - vpn_network
       - services_network
     ports:
       - "{{ WG_PORT }}:{{ WG_PORT }}/udp"
@@ -37,8 +36,6 @@ services:
       - {{ WG_DOCKER_PATH }}/config:/etc/wireguard
 
 networks:
-  vpn_network:
-    driver: bridge
   services_network:
     name: {{ DOCKER_SERVICES_NETWORK_NAME }}
     external: true
