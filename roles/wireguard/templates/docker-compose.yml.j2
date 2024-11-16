@@ -16,10 +16,22 @@ services:
       # WG_MTU: 1420
       # WG_ALLOWED_IPS: 192.168.15.0/24, 10.0.1.0/24
       # WG_PERSISTENT_KEEPALIVE: 25
-      # WG_PRE_UP: echo "Pre Up" > /etc/wireguard/pre-up.txt
-      # WG_POST_UP: echo "Post Up" > /etc/wireguard/post-up.txt
-      # WG_PRE_DOWN: echo "Pre Down" > /etc/wireguard/pre-down.txt
-      # WG_POST_DOWN: echo "Post Down" > /etc/wireguard/post-down.txt
+{% if WG_PRE_UP_FIREWALL_RULES is defined and WG_PRE_UP_FIREWALL_RULES | length > 0 %}
+      WG_PRE_UP: >
+        {{ WG_PRE_UP_FIREWALL_RULES | indent(8) }}
+{% endif %}
+{% if WG_POST_UP_FIREWALL_RULES is defined and WG_POST_UP_FIREWALL_RULES | length > 0 %}
+      WG_POST_UP: >
+        {{ WG_POST_UP_FIREWALL_RULES | indent(8) }}
+{% endif %}
+{% if WG_PRE_DOWN_FIREWALL_RULES is defined and WG_PRE_DOWN_FIREWALL_RULES | length > 0 %}
+      WG_PRE_DOWN: >
+        {{ WG_PRE_DOWN_FIREWALL_RULES | indent(8) }}
+{% endif %}
+{% if WG_POST_DOWN_FIREWALL_RULES is defined and WG_POST_DOWN_FIREWALL_RULES | length > 0 %}
+      WG_POST_DOWN: >
+        {{ WG_POST_DOWN_FIREWALL_RULES | indent(8) }}
+{% endif %}
       UI_TRAFFIC_STATS: {{ WG_UI_TRAFFIC_STATS }}
       UI_CHART_TYPE: {{ WG_UI_CHART_TYPE }} # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
     networks:

@@ -10,3 +10,18 @@ WG_LANG: en  # WebUI language.
 WG_UI_PASSWORD: foobar123  # WebUI Password.
 WG_UI_TRAFFIC_STATS: true  # Enable detailed RX / TX client stats in WebUI.
 WG_UI_CHART_TYPE: 0 # Type of chart for displaying statistics; 0 Charts disabled, 1 # Line chart, 2 # Area chart, 3  # Bar chart.
+
+# WG_PRE_UP_FIREWALL_RULES: |
+#   iptables -P FORWARD DROP;
+#   iptables -A FORWARD -i wg0 -d 10.8.0.0/24 -j ACCEPT;
+#   iptables -t nat -A POSTROUTING -o eth0 -s 10.8.0.0/24 -j MASQUERADE;
+#   iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 1234 -j DNAT --to-destination 10.8.0.2:1234;
+
+# WG_POST_UP:
+
+# WG_PRE_DOWN_FIREWALL_RULES: |
+#   iptables -D FORWARD -i wg0 -d 10.8.0.0/24 -j ACCEPT;
+#   iptables -t nat -D POSTROUTING -o eth0 -s 10.8.0.0/24 -j MASQUERADE;
+#   iptables -D PREROUTING -t nat -i eth0 -p tcp --dport 1234 -j DNAT --to-destination 10.8.0.2:1234;
+
+# WG_POST_DOWN:
