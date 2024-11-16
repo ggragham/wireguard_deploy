@@ -11,6 +11,9 @@ WG_UI_PASSWORD: foobar123  # WebUI Password.
 WG_UI_TRAFFIC_STATS: true  # Enable detailed RX / TX client stats in WebUI.
 WG_UI_CHART_TYPE: 0 # Type of chart for displaying statistics; 0 Charts disabled, 1 # Line chart, 2 # Area chart, 3  # Bar chart.
 
+# WG_ADDITIONAL_PORTS:
+#   - 1234:1234
+
 # WG_PRE_UP_FIREWALL_RULES: |
 #   iptables -P FORWARD DROP;
 #   iptables -A FORWARD -i wg0 -d 10.8.0.0/24 -j ACCEPT;

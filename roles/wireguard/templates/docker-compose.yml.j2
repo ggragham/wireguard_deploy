@@ -38,6 +38,11 @@ services:
       - services_network
     ports:
       - "{{ WG_PORT }}:{{ WG_PORT }}/udp"
+{% if WG_ADDITIONAL_PORTS is defined and WG_ADDITIONAL_PORTS | length > 0 %}
+{% for port in WG_ADDITIONAL_PORTS %}
+      - {{ port }}
+{% endfor %}
+{% endif %}
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
