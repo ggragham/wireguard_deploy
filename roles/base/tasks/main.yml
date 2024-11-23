@@ -2,6 +2,9 @@
 - include_tasks: debian_tasks.yml
   when: ansible_os_family == 'Debian'
 
+- include_tasks: fedora_tasks.yml
+  when: ansible_os_family == 'RedHat'
+
 - include_tasks: hardening.yml
 - include_tasks: ssh.yml
 - include_tasks: firewall.yml
