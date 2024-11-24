@@ -1,0 +1,25 @@
+---
+- name: Get distro name
+  set_fact:
+    distro_name: '{{ (ansible_distribution | lower) }}'
+
+- name: Add repo to Fedora
+  yum_repository:
+    name: docker
+    description: docker repository
+    baseurl: https://download.docker.com/linux/{{ distro_name }}/$releasever/$basearch/stable
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://download.docker.com/linux/{{ distro_name }}/gpg
+
+- name: Install docker to Fedora
+  dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: latest
+    update_cache: true
+    install_weak_deps: false
