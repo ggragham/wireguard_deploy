@@ -59,5 +59,6 @@
         dest: /etc/apt/apt.conf.d/40sandbox.conf
         mode: 0640
       become: true
+      when: ansible_os_family == 'Debian'
 
   tags: hardening
