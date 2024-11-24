@@ -8,10 +8,12 @@
 
     - name: Install Docker
       block:
-        - include_tasks: debian_install.yml
+        - name: Install docker to Debian-based system
+          include_tasks: debian_install.yml
           when: ansible_os_family == 'Debian'
 
-        - include_tasks: fedora_install.yml
+        - name: Install docker to RedHat-based system
+          include_tasks: fedora_install.yml
           when: ansible_os_family == 'RedHat'
 
         - name: Create Docker group
