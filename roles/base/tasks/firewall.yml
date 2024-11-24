@@ -19,6 +19,12 @@
   become: true
 
 - block:
+    - name: Ensure firewalld is started
+      systemd:
+        name: firewalld
+        state: started
+        enabled: true
+
     - name: Create default zone
       firewalld:
         zone: default
