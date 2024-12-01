@@ -11,7 +11,7 @@ server {
     server_name {{ AUTHELIA_SESSION_URL }};
     listen 443 ssl;
 
-    set $upstream http://authelia:9091;
+    set $upstream http://{{ AUTHELIA_DOCKER_SERVICE_NAME }}:9091;
 
     location / {
         include /etc/nginx/snippets/proxy.conf;
