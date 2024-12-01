@@ -45,6 +45,10 @@
       docker_network:
         name: '{{ DOCKER_SERVICES_NETWORK_NAME }}'
         driver: bridge
+        driver_options:
+          com.docker.network.bridge.name: br-{{ DOCKER_SERVICES_NETWORK_NAME }}
+        ipam_config:
+          - subnet: '{{ DOCKER_SERVICES_NETWORK_SUBNET }}'
         state: present
 
   tags: docker
