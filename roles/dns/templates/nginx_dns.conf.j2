@@ -1,0 +1,42 @@
+server {
+    server_name {{ DNS_DOMAIN }};
+    listen 80;
+    return 301 https://$host$request_uri;
+
+    access_log /var/log/nginx/dns-access.log;
+    error_log /var/log/nginx/dns-error.log;
+}
+
+server {
+    listen 443 ssl;
+    server_name {{ DNS_DOMAIN }};
+
+    set $upstream http://{{ PIHOLE_DOCKER_SERVICE_NAME }}:80;
+
+    location ^~ /admin {
+        include /etc/nginx/snippets/authelia-authrequest.conf;
+        include /etc/nginx/snippets/proxy.conf;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_set_header Connection "";
+        proxy_pass_header X-Transmission-Session-Id;
+        add_header Front-End-Https on;
+
+        proxy_pass $upstream;
+    }
+
+    location = / {
+        return 301 $scheme://$host/admin;
+    }
+
+    access_log /var/log/nginx/dns-access.log;
+    error_log /var/log/nginx/dns-error.log;
+
+    include /etc/nginx/snippets/headers.conf;
+    include /etc/nginx/snippets/ssl-params.conf;
+
+    include /etc/nginx/snippets/authelia-location.conf;
+
+}

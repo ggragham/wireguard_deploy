@@ -18,5 +18,8 @@
     - role: authelia
       tags: authelia
 
+    - role: dns
+      tags: dns
+
     - role: wireguard
       tags: wireguard

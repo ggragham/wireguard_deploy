@@ -1,0 +1,22 @@
+services:
+  {{ PIHOLE_DOCKER_SERVICE_NAME }}:
+    image: pihole/pihole:{{ PIHOLE_DOCKER_IMAGE_VERSION }}
+    container_name: {{ PIHOLE_DOCKER_CONTAINER_NAME }}
+    restart: unless-stopped
+    environment:
+      TZ: Etc/UTC
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+    networks:
+      - services_network
+      - {{ DNS_DOCKER_NETWORK_NAME }}
+    volumes:
+      - {{ PIHOLE_CONFIG_PATH }}:/etc/pihole
+      - {{ PIHOLE_DNSMASQ_PATH }}:/etc/dnsmasq.d
+
+networks:
+  services_network:
+    name: {{ DOCKER_SERVICES_NETWORK_NAME }}
+    external: true
+  {{ DNS_DOCKER_NETWORK_NAME }}:
