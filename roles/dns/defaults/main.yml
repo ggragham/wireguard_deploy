@@ -1,4 +1,5 @@
 ---
+DNS_SERVER_INSTALL: true
 DNS_DOMAIN: dns.{{ DOMAIN_NAME }}
 DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
 DOCKER_SERVICES_NETWORK_DNS_IP: 172.27.0.53

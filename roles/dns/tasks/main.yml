@@ -1,5 +1,9 @@
 ---
-- name: Apply resolved config
-  include_tasks: resolved_config.yml
-- name: Install Pi-hole
-  include_tasks: pihole.yml
+- name: Install and config DNS Server
+  block:
+    - name: Apply resolved config
+      include_tasks: resolved_config.yml
+    - name: Install Pi-hole
+      include_tasks: pihole.yml
+
+  when: DNS_SERVER_INSTALL
