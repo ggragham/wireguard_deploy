@@ -3,7 +3,7 @@ NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx docker installation path.
 NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Path for Nginx config to proxy WireGuard UI.
 DNS_DOCKER_NETWORK_NAME: dns_network
 
-PIHOLE_DOCKER_PATH: /opt/pihole_docker
+PIHOLE_DOCKER_PATH: /opt/dns_docker
 PIHOLE_CONFIG_PATH: '{{ PIHOLE_DOCKER_PATH }}/config'  # Pi-hole configuration path.
 PIHOLE_DNSMASQ_PATH: '{{ PIHOLE_DOCKER_PATH }}/dnsmasq.d'  # Pi-hole dnsmasq.d path.
 PIHOLE_DOCKER_SERVICE_NAME: pihole
