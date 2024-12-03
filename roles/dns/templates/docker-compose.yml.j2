@@ -4,19 +4,41 @@ services:
     container_name: {{ PIHOLE_DOCKER_CONTAINER_NAME }}
     restart: unless-stopped
     environment:
-      TZ: Etc/UTC
+      TZ: {{ PIHOLE_TIMEZONE }}
+      IPv6: false
+      PIHOLE_DNS_: "{{ CLOUDFLARED_DOCKER_NETWORK_IPV4 }}#{{ CLOUDFLARED_TUNNEL_DNS_PORT }}"
+      DNSSEC: {{ PIHOLE_DNSSEC }}
     ports:
       - 53:53/tcp
       - 53:53/udp
     networks:
-      - services_network
-      - {{ DNS_DOCKER_NETWORK_NAME }}
+      services_network:
+      {{ DNS_DOCKER_NETWORK_NAME }}:
     volumes:
       - {{ PIHOLE_CONFIG_PATH }}:/etc/pihole
       - {{ PIHOLE_DNSMASQ_PATH }}:/etc/dnsmasq.d
+
+  {{ CLOUDFLARED_DOCKER_SERVICE_NAME }}:
+    container_name: {{ CLOUDFLARED_DOCKER_CONTAINER_NAME }}
+    image: cloudflare/cloudflared:{{ CLOUDFLARED_DOCKER_IMAGE_VERSION }}
+    command: proxy-dns
+    networks:
+      {{ DNS_DOCKER_NETWORK_NAME }}:
+        ipv4_address: {{ CLOUDFLARED_DOCKER_NETWORK_IPV4 }}
+    environment:
+      TZ: {{ CLOUDFLARED_TIMEZONE }}
+      TUNNEL_DNS_PORT: {{ CLOUDFLARED_TUNNEL_DNS_PORT }}
+      TUNNEL_DNS_ADDRESS: "{{ CLOUDFLARED_TUNNEL_DNS_ADDRESS }}"
+      TUNNEL_DNS_UPSTREAM: "{{ CLOUDFLARED_TUNNEL_DNS_UPSTREAM }}"
+    restart: unless-stopped
 
 networks:
   services_network:
     name: {{ DOCKER_SERVICES_NETWORK_NAME }}
     external: true
   {{ DNS_DOCKER_NETWORK_NAME }}:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      config:
+        - subnet: "{{ DNS_DOCKER_NETWORK_SUBNET }}"

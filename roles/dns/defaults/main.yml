@@ -5,11 +5,17 @@ DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related serv
 PIHOLE_DOCKER_IMAGE_VERSION: latest
 
 PIHOLE_ADMIN_PASSWORD: foobar123  # Password used to login in Pi-hole WebUI.
-PIHOLE_DNS_1: 1.1.1.1  # Primary DNS server.
-PIHOLE_DNS_2: 1.0.0.1  # Secondary DNS server.
-PIHOLE_DNS_3: 9.9.9.9  # Tertiary DNS server.
-PIHOLE_DNS_4: 149.112.112.112  # Quaternary DNS server.
+PIHOLE_TIMEZONE: Etc/UTC
+# PIHOLE_DNS_1: 1.1.1.1  # Primary DNS server.
+# PIHOLE_DNS_2: 1.0.0.1  # Secondary DNS server.
+# PIHOLE_DNS_3: 9.9.9.9  # Tertiary DNS server.
+# PIHOLE_DNS_4: 149.112.112.112  # Quaternary DNS server.
+PIHOLE_DNSSEC: true
 PIHOLE_QUERY_LOGGING: 'true'  # Toggle query logging.
 PIHOLE_CACHE_SIZE: 10000  # DNS cache size.
 PIHOLE_WEBUI_BOXED_LAYOUT: boxed  # Web interface layout.
 PIHOLE_WEBUI_THEME: default-dark  # Web interface theme.
+
+CLOUDFLARED_DOCKER_IMAGE_VERSION: latest
+CLOUDFLARED_TIMEZONE: Etc/UTC
+CLOUDFLARED_TUNNEL_DNS_UPSTREAM: https://1.1.1.1/dns-query,https://1.0.0.1/dns-query

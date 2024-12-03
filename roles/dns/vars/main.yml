@@ -2,9 +2,16 @@
 NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx docker installation path.
 NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Path for Nginx config to proxy WireGuard UI.
 DNS_DOCKER_NETWORK_NAME: dns_network
+DNS_DOCKER_NETWORK_SUBNET: 172.27.0.0/24
 
 PIHOLE_DOCKER_PATH: /opt/dns_docker
 PIHOLE_CONFIG_PATH: '{{ PIHOLE_DOCKER_PATH }}/config'  # Pi-hole configuration path.
 PIHOLE_DNSMASQ_PATH: '{{ PIHOLE_DOCKER_PATH }}/dnsmasq.d'  # Pi-hole dnsmasq.d path.
 PIHOLE_DOCKER_SERVICE_NAME: pihole
 PIHOLE_DOCKER_CONTAINER_NAME: pihole_container
+
+CLOUDFLARED_DOCKER_SERVICE_NAME: cloudflared
+CLOUDFLARED_DOCKER_CONTAINER_NAME: cloudflared_container
+CLOUDFLARED_DOCKER_NETWORK_IPV4: 172.27.0.53
+CLOUDFLARED_TUNNEL_DNS_PORT: 5053
+CLOUDFLARED_TUNNEL_DNS_ADDRESS: 0.0.0.0
