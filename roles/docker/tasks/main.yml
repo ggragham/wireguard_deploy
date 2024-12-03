@@ -47,6 +47,7 @@
         driver: bridge
         driver_options:
           com.docker.network.bridge.name: br-{{ DOCKER_SERVICES_NETWORK_NAME }}
+        enable_ipv6: false
         ipam_config:
           - subnet: '{{ DOCKER_SERVICES_NETWORK_SUBNET }}'
         state: present
