@@ -1,2 +1,2 @@
 ---
-USERNAME: '{{ ansible_user }}'
+USERNAME: '{{ ansible_user }}'  # Username of your user on the target Linux machine.

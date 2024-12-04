@@ -1,5 +1,5 @@
 ---
-NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx docker installation path.
+NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx Docker installation path.
 NGINX_SNIPPETS_PATH: '{{ NGINX_DOCKER_PATH }}/snippets'  # Nginx snippets path.
 NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Nginx enabled sites path.
 

@@ -1,17 +1,17 @@
 ---
-NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx docker installation path.
+NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx Docker installation path.
 NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Path for Nginx config to proxy WireGuard UI.
-DNS_DOCKER_NETWORK_NAME: dns_network
-DNS_DOCKER_NETWORK_SUBNET: 172.27.0.0/24
+DNS_DOCKER_NETWORK_NAME: dns_network  # Name of the Docker network for DNS services.
+DNS_DOCKER_NETWORK_SUBNET: 172.27.0.0/24  # Subnet for the Docker network.
 
-PIHOLE_DOCKER_PATH: /opt/dns_docker
-PIHOLE_CONFIG_PATH: '{{ PIHOLE_DOCKER_PATH }}/config'  # Pi-hole configuration path.
-PIHOLE_DNSMASQ_PATH: '{{ PIHOLE_DOCKER_PATH }}/dnsmasq.d'  # Pi-hole dnsmasq.d path.
-PIHOLE_DOCKER_SERVICE_NAME: pihole
-PIHOLE_DOCKER_CONTAINER_NAME: pihole_container
+DNS_DOCKER_PATH: /opt/dns_docker  # DNS Server Docker installation path.
+PIHOLE_CONFIG_PATH: '{{ DNS_DOCKER_PATH }}/config'  # Pi-hole configuration path.
+PIHOLE_DNSMASQ_PATH: '{{ DNS_DOCKER_PATH }}/dnsmasq.d'  # Pi-hole dnsmasq.d path.
+PIHOLE_DOCKER_SERVICE_NAME: pihole  # Pi-hole Docker service name.
+PIHOLE_DOCKER_CONTAINER_NAME: pihole_container  # Pi-hole container name.
 
-CLOUDFLARED_DOCKER_SERVICE_NAME: cloudflared
-CLOUDFLARED_DOCKER_CONTAINER_NAME: cloudflared_container
-CLOUDFLARED_DOCKER_NETWORK_IPV4: 172.27.0.53
-CLOUDFLARED_TUNNEL_DNS_PORT: 5053
-CLOUDFLARED_TUNNEL_DNS_ADDRESS: 0.0.0.0
+CLOUDFLARED_DOCKER_SERVICE_NAME: cloudflared  # Cloudflared Docker service name.
+CLOUDFLARED_DOCKER_CONTAINER_NAME: cloudflared_container  # Cloudflared container name.
+CLOUDFLARED_DOCKER_NETWORK_IPV4: 172.27.0.53  # IPv4 address assigned to the Cloudflare container on the DNS Docker network.
+CLOUDFLARED_TUNNEL_DNS_PORT: 5053  # DNS port used by Cloudflare Tunnel for DNS queries.
+CLOUDFLARED_TUNNEL_DNS_ADDRESS: 0.0.0.0  # Address on which the Cloudflare Tunnel will listen for incoming DNS requests.

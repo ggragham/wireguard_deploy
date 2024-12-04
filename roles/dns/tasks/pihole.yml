@@ -9,7 +9,7 @@
       loop_control:
         loop_var: directory
       loop:
-        - '{{ PIHOLE_DOCKER_PATH }}'
+        - '{{ DNS_DOCKER_PATH }}'
         - '{{ PIHOLE_CONFIG_PATH }}'
       become: true
 
@@ -25,7 +25,7 @@
     - name: Apply Pi-hole Docker Compose template
       template:
         src: docker-compose.yml.j2
-        dest: '{{ PIHOLE_DOCKER_PATH }}/docker-compose.yml'
+        dest: '{{ DNS_DOCKER_PATH }}/docker-compose.yml'
         owner: root
         group: root
         mode: 0644
@@ -38,7 +38,7 @@
       loop_control:
         loop_var: service_path
       loop:
-        - '{{ PIHOLE_DOCKER_PATH }}'
+        - '{{ DNS_DOCKER_PATH }}'
         - '{{ NGINX_DOCKER_PATH }}'
 
     - name: Set Pi-hole admin password

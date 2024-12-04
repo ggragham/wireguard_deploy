@@ -1,21 +1,22 @@
 ---
-DNS_SERVER_INSTALL: true
-DNS_DOMAIN: dns.{{ DOMAIN_NAME }}
+## External Environment Variables
+DOMAIN_NAME: example.com  # Domain name of your server.
 DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
-PIHOLE_DOCKER_IMAGE_VERSION: latest
 
+## Essential Environment Variables
+PIHOLE_DOCKER_IMAGE_VERSION: latest  # Pi-hole Docker image version.
+PIHOLE_TIMEZONE: Etc/UTC  # Timezone for the Pi-hole instance.
 PIHOLE_ADMIN_PASSWORD: foobar123  # Password used to login in Pi-hole WebUI.
-PIHOLE_TIMEZONE: Etc/UTC
-# PIHOLE_DNS_1: 1.1.1.1  # Primary DNS server.
-# PIHOLE_DNS_2: 1.0.0.1  # Secondary DNS server.
-# PIHOLE_DNS_3: 9.9.9.9  # Tertiary DNS server.
-# PIHOLE_DNS_4: 149.112.112.112  # Quaternary DNS server.
-PIHOLE_DNSSEC: true
+
+CLOUDFLARED_DOCKER_IMAGE_VERSION: latest  # Cloudflared Docker image version.
+CLOUDFLARED_TIMEZONE: Etc/UTC  # Timezone for the Cloudflared service.
+CLOUDFLARED_TUNNEL_DNS_UPSTREAM: https://1.1.1.1/dns-query,https://1.0.0.1/dns-query  # Upstream DoH servers for Cloudflared tunnel.
+
+## Optional Environment Variables
+DNS_SERVER_INSTALL: true  # Enable or disable DNS Server installation.
+DNS_DOMAIN: dns.{{ DOMAIN_NAME }}  # URL of the DNS web control panel.
+PIHOLE_DNSSEC: true  # Enable or disable DNSSEC support.
 PIHOLE_QUERY_LOGGING: 'true'  # Toggle query logging.
 PIHOLE_CACHE_SIZE: 10000  # DNS cache size.
 PIHOLE_WEBUI_BOXED_LAYOUT: boxed  # Web interface layout.
 PIHOLE_WEBUI_THEME: default-dark  # Web interface theme.
-
-CLOUDFLARED_DOCKER_IMAGE_VERSION: latest
-CLOUDFLARED_TIMEZONE: Etc/UTC
-CLOUDFLARED_TUNNEL_DNS_UPSTREAM: https://1.1.1.1/dns-query,https://1.0.0.1/dns-query
