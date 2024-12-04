@@ -1,38 +1,60 @@
-Role Name
+DNS Role
 =========
 
-A brief description of the role goes here.
+Install and configure Pi-hole as a DNS server and cloudflared as a DoH provider.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Docker is installed or a Docker Ansible role is applied (see [Docker Installation Guide](https://docs.docker.com/engine/install/)).
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yml
+DNS_SERVER_INSTALL: true  # Enable or disable DNS Server installation.
+DNS_DOMAIN: dns.{{ DOMAIN_NAME }}  # URL of the DNS web control panel.
+DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
+PIHOLE_DOCKER_IMAGE_VERSION: latest  # Pi-hole Docker image version.
+
+PIHOLE_ADMIN_PASSWORD: foobar123  # Password used to login in Pi-hole WebUI.
+PIHOLE_TIMEZONE: Etc/UTC  # Timezone for the Pi-hole instance.
+PIHOLE_DNSSEC: true  # Enable or disable DNSSEC support.
+PIHOLE_QUERY_LOGGING: 'true'  # Toggle query logging.
+PIHOLE_CACHE_SIZE: 10000  # DNS cache size.
+PIHOLE_WEBUI_BOXED_LAYOUT: boxed  # Web interface layout.
+PIHOLE_WEBUI_THEME: default-dark  # Web interface theme.
+
+CLOUDFLARED_DOCKER_IMAGE_VERSION: latest  # Cloudflared Docker image version.
+CLOUDFLARED_TIMEZONE: Etc/UTC  # Timezone for the Cloudflared service.
+CLOUDFLARED_TUNNEL_DNS_UPSTREAM: https://1.1.1.1/dns-query,https://1.0.0.1/dns-query  # Upstream DoH servers for Cloudflared tunnel.
+
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```yml
+dependencies:
+  - role: docker
+```
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yml
+  - hosts: servers
+    roles:
+       - role: dns
+```
 
 License
 -------
 
-BSD
+GPL
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Grell Gragham](https://github.com/ggragham)
+
