@@ -6,7 +6,7 @@ Install and config webserver.
 Requirements
 ------------
 
-- Docker is installed or a Docker Ansible role is applied (see [Docker Installation Guide](https://docs.docker.com/engine/install/)). This is required if you choose to use the Dockerized installation of Nginx.
+- Docker is installed or a Docker Ansible role is applied (see [Docker Installation Guide](https://docs.docker.com/engine/install/)).
 
 Role Variables
 --------------
