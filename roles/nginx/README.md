@@ -12,14 +12,17 @@ Role Variables
 --------------
 
 ```yml
----
+## External Environment Variables
 DOMAIN_NAME: example.com  # Nginx server domain.
-DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
-NGINX_DOCKER_IMAGE_VERSION: latest  # Nginx Docker image version.
 
-SSL_CERT_NAME: cert.crt  # SSL Cert name.
-SSL_KEY_NAME: cert.key  # SSL Key name.
-DH_NAME: dhparam.pem  # DH key name.
+## Essential Environment Variables
+NGINX_DOCKER_IMAGE_VERSION: latest  # Nginx Docker image version.
+SSL_CERT_NAME: cert.crt  # SSL certificate filename placed in the assets/ directory.
+SSL_KEY_NAME: cert.key  # SSL Key filename placed in the assets/ directory.
+DH_NAME: dhparam.pem  # DH key filename placed in the assets/ directory.
+
+## Optional Environment Variables
+DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
 SSL_CERT_PATH: ./assets/{{ SSL_CERT_NAME }}  # SSL Cert path.
 SSL_KEY_PATH: ./assets/{{ SSL_KEY_NAME }}  # SSL Key path.
 DH_PATH: ./assets/{{ DH_NAME }}  # DH key path.
