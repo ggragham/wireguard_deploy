@@ -3,14 +3,14 @@
   block:
     - name: Install chronyd to Debian
       apt:
-        name: chronyd
+        name: chrony
         state: latest
         update_cache: true
       when: ansible_os_family == 'Debian'
 
     - name: Install chronyd to Fedora
       dnf:
-        name: chronyd
+        name: chrony
         state: latest
         update_cache: true
         install_weak_deps: false
