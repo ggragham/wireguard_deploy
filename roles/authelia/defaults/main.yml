@@ -13,6 +13,7 @@ AUTHELIA_STORAGE_ENCRYTPTION_KEY: example_of_storage_encryption_key  # Ecryption
 
 ## Optional Environment Variables
 AUTHELIA_INSTALL: true  # Enable or disable Authelia installation.
+AUTHELIA_SESSION_URL: auth.{{ AUTHELIA_SESSION_DOMAIN }}
 AUTHELIA_THEME: dark  # light, dark, grey, auto.
 AUTHELIA_LOG_FORMAT: text  # text, json.
 AUTHELIA_TOTP_ISSUER: authelia.com  # Name displayed in the Authenticator application.
