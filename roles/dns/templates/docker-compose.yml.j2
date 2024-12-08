@@ -6,13 +6,12 @@ services:
     environment:
       TZ: {{ PIHOLE_TIMEZONE }}
       IPv6: false
+      DNSMASQ_LISTENING: all
       PIHOLE_DNS_: "{{ CLOUDFLARED_DOCKER_NETWORK_IPV4 }}#{{ CLOUDFLARED_TUNNEL_DNS_PORT }}"
       DNSSEC: {{ PIHOLE_DNSSEC }}
-    ports:
-      - 53:53/tcp
-      - 53:53/udp
     networks:
       services_network:
+        ipv4_address: {{ DOCKER_SERVICES_NETWORK_DNS_IP }}
       {{ DNS_DOCKER_NETWORK_NAME }}:
     volumes:
       - {{ PIHOLE_CONFIG_PATH }}:/etc/pihole

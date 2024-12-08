@@ -3,6 +3,7 @@ NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx Docker installation path.
 NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Path for Nginx config to proxy WireGuard UI.
 DNS_DOCKER_NETWORK_NAME: dns_network  # Name of the Docker network for DNS services.
 DNS_DOCKER_NETWORK_SUBNET: 172.27.0.0/24  # Subnet for the Docker network.
+DOCKER_SERVICES_NETWORK_DNS_IP: 172.18.0.53  # IP address for DNS server in Docker services network.
 
 DNS_DOCKER_PATH: /opt/dns_docker  # DNS Server Docker installation path.
 PIHOLE_CONFIG_PATH: '{{ DNS_DOCKER_PATH }}/config'  # Pi-hole configuration path.

@@ -16,6 +16,7 @@ WG_DEFAULT_ADDRESS: 10.8.0.x  # Clients IP address range.
 WG_DEFAULT_DNS: 1.1.1.1, 1.0.0.1  # DNS servers for clients (used if DNS role is not installed).
 WG_UI_TRAFFIC_STATS: true  # Enable detailed RX / TX client stats in WebUI.
 WG_UI_CHART_TYPE: 0 # Type of chart for displaying statistics; 0 Charts disabled, 1 # Line chart, 2 # Area chart, 3  # Bar chart.
+WG_LOCAL_DNS: '{{ DOCKER_SERVICES_NETWORK_DNS_IP }}'  # Local DNS server IP in the Docker services network.
 
 ## Advanced Environment Variables
 ## Define extra ports to expose (optional).

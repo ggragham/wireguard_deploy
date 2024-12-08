@@ -40,19 +40,6 @@
         - wireguard.conf
       become: true
 
-    - name: Get DNS ip address
-      block:
-        - name: Get public IP from target
-          uri:
-            url: https://ifconfig.me/ip
-            return_content: true
-          register: public_ip
-
-        - name: Save public IP to fact
-          set_fact:
-            OWN_DNS_SERVER: '{{ public_ip.content | trim }}'
-      when: DNS_SERVER_INSTALL
-
     - name: Apply Wireguard Docker Compose template
       template:
         src: docker-compose.yml.j2

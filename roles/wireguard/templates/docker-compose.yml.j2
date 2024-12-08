@@ -12,7 +12,7 @@ services:
       WG_PORT: {{ WG_PORT }}
       # WG_CONFIG_PORT: 92820
       WG_DEFAULT_ADDRESS: {{ WG_DEFAULT_ADDRESS }}
-      WG_DEFAULT_DNS: {{ OWN_DNS_SERVER if DNS_SERVER_INSTALL else WG_DEFAULT_DNS }}
+      WG_DEFAULT_DNS: {{ WG_LOCAL_DNS if DNS_SERVER_INSTALL else WG_DEFAULT_DNS }}
       WG_MTU: {{ WG_MTU }}
       # WG_ALLOWED_IPS: 192.168.15.0/24, 10.0.1.0/24
       # WG_PERSISTENT_KEEPALIVE: 25
@@ -45,7 +45,7 @@ services:
 {% endif %}
 {% if DNS_SERVER_INSTALL %}
     dns:
-      - 127.0.0.1
+      - {{ WG_LOCAL_DNS }}
 {% endif %}
 
     cap_add:
