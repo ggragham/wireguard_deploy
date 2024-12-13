@@ -21,7 +21,7 @@ FAIL2BAN_MAXRETRY: 5  # Number of allowed failed login attempts before banning I
 NGINX_DOCKER_IMAGE_VERSION: latest  # Nginx Docker image version.
 SSL_CERT_NAME: cert.crt  # SSL certificate filename placed in the assets/ directory.
 SSL_KEY_NAME: cert.key  # SSL Key filename placed in the assets/ directory.
-DH_NAME: dhparam.pem  # DH key filename placed in the assets/ directory.
+SSL_DH_NAME: dhparam.pem  # DH key filename placed in the assets/ directory.
 
 ############################
 ###  Authelia role vars  ###
