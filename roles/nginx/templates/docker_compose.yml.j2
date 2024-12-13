@@ -10,16 +10,38 @@ services:
       - {{ NGINX_DOCKER_CONF_PATH }}/default.conf:/etc/nginx/conf.d/default.conf:ro
       - {{ NGINX_SNIPPETS_PATH }}:/etc/nginx/snippets:ro
       - {{ NGINX_SITES_ENABLED_PATH }}:/etc/nginx/sites-enabled:ro
+      - {{ NGINX_SSL_DH_PATH }}:/etc/nginx/{{ SSL_DH_NAME }}:ro
+{% if SSL_GEN == 'auto' %}
+      - {{ CERTBOT_VOLUME_NAME }}:/etc/letsencrypt
+{% elif SSL_GEN == 'manual' %}
       - {{ NGINX_SSL_CERT_PATH }}:/etc/nginx/{{ SSL_CERT_NAME }}:ro
       - {{ NGINX_SSL_KEY_PATH }}:/etc/nginx/{{ SSL_KEY_NAME }}:ro
-      - {{ NGINX_SSL_DH_PATH }}:/etc/nginx/{{ SSL_DH_NAME }}:ro
+{% endif %}
     networks:
       - nginx_network
     ports:
       - 80:80
       - 443:443
 
+{% if SSL_GEN == 'auto' %}
+  {{ CERTBOT_SERVICE_NAME }}:
+    image: certbot/certbot
+    container_name: {{ CERTBOT_CONTAINER_NAME }}
+    restart: unless-stopped
+    environment:
+      - TZ={{ TIMEZONE }}
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --webroot -w /var/www/html; sleep 12h; done'"
+    volumes:
+      - {{ CERTBOT_VOLUME_NAME }}:/etc/letsencrypt
+      - {{ NGINX_DOCKER_WWW_PATH }}:/var/www/html
+{% endif %}
+
 networks:
   nginx_network:
     name: {{ DOCKER_SERVICES_NETWORK_NAME }}
     external: true
+
+{% if SSL_GEN == 'auto' %}
+volumes:
+  {{ CERTBOT_VOLUME_NAME }}:
+{% endif %}

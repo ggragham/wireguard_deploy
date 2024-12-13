@@ -1,5 +1,7 @@
+{% if SSL_GEN == 'manual' %}
 ssl_certificate {{ '/etc/nginx/' + SSL_CERT_NAME }};
 ssl_certificate_key {{ '/etc/nginx/' + SSL_KEY_NAME }};
+{% endif %}
 ssl_dhparam /etc/nginx/{{ SSL_DH_NAME }};
 ssl_protocols TLSv1.3;
 ssl_prefer_server_ciphers on;

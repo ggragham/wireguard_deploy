@@ -2,6 +2,12 @@
 ## External Environment Variables
 DOMAIN_NAME: example.com  # Domain name of your server.
 DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
+NGINX_DOCKER_DIR_NAME: nginx_docker  # Nginx Docker directory name.
+NGINX_DOCKER_PATH: /opt/{{ NGINX_DOCKER_DIR_NAME }}  # Nginx Docker installation path.
+NGINX_DOCKER_WWW_PATH: '{{ NGINX_DOCKER_PATH }}/www'  # Docker www webcontent path.
+CERTBOT_VOLUME_NAME: certs  # Volume name for SSL certificates.
+SSL_GEN: auto  # Source of SSL Certificate.
+SSL_EMAIL: test@example.com  # Email address used for SSL certificate registration or renewal notifications.
 
 ## Essential Environment Variables
 PIHOLE_DOCKER_IMAGE_VERSION: latest  # Pi-hole Docker image version.

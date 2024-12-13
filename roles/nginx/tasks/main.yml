@@ -55,29 +55,39 @@
 
       become: true
 
-    - name: Copy ssl cert
-      copy:
-        src: '{{ SSL_CERT_PATH }}'
-        dest: '{{ NGINX_SSL_CERT_PATH }}'
-        owner: '{{ NGINX_USER }}'
-        mode: 0400
-      become: true
+    - name: Copy existing certs
+      block:
+        - name: Copy ssl cert
+          copy:
+            src: '{{ SSL_CERT_PATH }}'
+            dest: '{{ NGINX_SSL_CERT_PATH }}'
+            owner: '{{ NGINX_USER }}'
+            mode: 0400
+          become: true
 
-    - name: Copy ssl key
-      copy:
-        src: '{{ SSL_KEY_PATH }}'
-        dest: '{{ NGINX_SSL_KEY_PATH }}'
-        owner: '{{ NGINX_USER }}'
-        mode: 0400
-      become: true
+        - name: Copy ssl key
+          copy:
+            src: '{{ SSL_KEY_PATH }}'
+            dest: '{{ NGINX_SSL_KEY_PATH }}'
+            owner: '{{ NGINX_USER }}'
+            mode: 0400
+          become: true
 
-    - name: Copy dh group
-      copy:
-        src: '{{ SSL_DH_PATH }}'
-        dest: '{{ NGINX_SSL_DH_PATH }}'
-        owner: '{{ NGINX_USER }}'
-        mode: 0400
+        - name: Copy dh group
+          copy:
+            src: '{{ SSL_DH_PATH }}'
+            dest: '{{ NGINX_SSL_DH_PATH }}'
+            owner: '{{ NGINX_USER }}'
+            mode: 0400
+          become: true
+      when: SSL_GEN == 'manual'
+
+    - name: Gen dhparam.pem
+      shell: openssl dhparam -out {{ SSL_DH_NAME }} {{ SSL_DH_KEY_SIZE }}
+      args:
+        chdir: '{{ NGINX_DOCKER_SSL_PATH }}'
       become: true
+      when: SSL_GEN == 'auto'
 
     - name: Apply headers config
       template:

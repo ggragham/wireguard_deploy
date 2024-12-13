@@ -27,4 +27,10 @@ server {
     }
 
     include /etc/nginx/snippets/ssl-params.conf;
+
+{% if SSL_GEN == 'auto'%}
+    ssl_certificate /etc/letsencrypt/live/{{ AUTHELIA_SESSION_URL }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ AUTHELIA_SESSION_URL }}/privkey.pem;
+{% endif %}
+
 }

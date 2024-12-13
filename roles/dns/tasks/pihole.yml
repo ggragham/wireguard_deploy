@@ -22,6 +22,30 @@
         mode: 0644
       become: true
 
+    - name: Get Let's Encrypt certificate for DNS Server
+      block:
+        - name: Stop Nginx
+          shell: docker compose down
+          args:
+            chdir: '{{ NGINX_DOCKER_PATH }}'
+          become: true
+
+        - name: Get cert
+          shell: |
+            docker run --rm \
+            -p 80:80 \
+            -p 443:443 \
+            -v {{ NGINX_DOCKER_WWW_PATH }}/dns:/var/www/html/dns \
+            -v {{ NGINX_DOCKER_DIR_NAME }}_{{ CERTBOT_VOLUME_NAME }}:/etc/letsencrypt \
+            certbot/certbot certonly \
+            --standalone --agree-tos --non-interactive \
+            --email {{ SSL_EMAIL }} \
+            -d {{ DNS_DOMAIN }} \
+            --post-hook "chown -R 33 /etc/letsencrypt/archive /etc/letsencrypt/live"
+          args:
+            chdir: '{{ NGINX_DOCKER_PATH }}'
+      when: SSL_GEN == 'auto'
+
     - name: Apply Pi-hole Docker Compose template
       template:
         src: docker-compose.yml.j2

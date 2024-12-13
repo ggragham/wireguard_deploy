@@ -1,15 +1,30 @@
 ---
 ## External Environment Variables
 DOMAIN_NAME: example.com  # Nginx server domain.
+TIMEZONE: UTC  # Set your server's timezone.
 
 ## Essential Environment Variables
 NGINX_DOCKER_IMAGE_VERSION: latest  # Nginx Docker image version.
-SSL_CERT_NAME: cert.crt  # SSL certificate filename placed in the assets/ directory.
-SSL_KEY_NAME: cert.key  # SSL Key filename placed in the assets/ directory.
-SSL_DH_NAME: dhparam.pem  # DH key filename placed in the assets/ directory.
 
 ## Optional Environment Variables
 DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
+# Determines the source of the SSL certificate.
+# Options: 'auto' or 'manual'
+# 'auto' - Obtain the certificate automatically through Let's Encrypt.
+# 'manual' - Manually provide your SSL certificate and place it in the assets directory.
+# In this case, specify the certificate file names using the variables:
+# SSL_CERT_NAME for the certificate,
+# SSL_KEY_NAME for the private key,
+# SSL_DH_NAME for the Diffie-Hellman parameters.
+SSL_GEN: auto
+SSL_EMAIL: test@example.com  # Email address used for SSL certificate registration or renewal notifications.
+SSL_DH_NAME: dhparam.pem  # DH key filename placed in the assets/ directory.
+SSL_DH_KEY_SIZE: 2048  # Key size for the DH parameters.
+
+# !! THIS CONFIGURATION IS USED WHEN 'SSL_GEN' SET TO manual !!
+SSL_CERT_NAME: cert.crt  # SSL certificate filename placed in the assets/ directory.
+SSL_KEY_NAME: cert.key  # SSL Key filename placed in the assets/ directory.
+
 SSL_CERT_PATH: ./assets/{{ SSL_CERT_NAME }}  # SSL Cert path.
 SSL_KEY_PATH: ./assets/{{ SSL_KEY_NAME }}  # SSL Key path.
 SSL_DH_PATH: ./assets/{{ SSL_DH_NAME }}  # DH key path.

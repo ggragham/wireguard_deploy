@@ -36,4 +36,9 @@ server {
     include /etc/nginx/snippets/authelia-location.conf;
 {% endif %}
 
+{% if SSL_GEN == 'auto'%}
+    ssl_certificate /etc/letsencrypt/live/{{ DOMAIN_NAME }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ DOMAIN_NAME }}/privkey.pem;
+{% endif %}
+
 }

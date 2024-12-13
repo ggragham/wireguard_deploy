@@ -3,6 +3,7 @@
 DOMAIN_NAME: example.com  # Nginx server domain.
 SSH_PORT: 22  # Port for SSH access.
 NETWORK_INTERFACE: eth0  # Default network interface.
+TIMEZONE: UTC  # Set your server's timezone.
 
 ## Optional Environment Variables
 FAIL2BAN_BANTIME: 5m  # Duration for which IPs are banned.
