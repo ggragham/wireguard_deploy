@@ -83,10 +83,21 @@
       when: SSL_GEN == 'manual'
 
     - name: Gen dhparam.pem
-      shell: openssl dhparam -out {{ SSL_DH_NAME }} {{ SSL_DH_KEY_SIZE }}
-      args:
-        chdir: '{{ NGINX_DOCKER_SSL_PATH }}'
-      become: true
+      block:
+        - name: Check if dhparam.pem exists
+          stat:
+            path: '{{ NGINX_DOCKER_SSL_PATH }}/{{ SSL_DH_NAME }}'
+          register: dhparam_stat
+          become: true
+
+        - name: Gen dhparam.pem
+          shell: |
+            openssl dhparam -out {{ SSL_DH_NAME }} {{ SSL_DH_KEY_SIZE }}
+            chown 33 {{ NGINX_DOCKER_SSL_PATH }}/{{ SSL_DH_NAME }}
+          args:
+            chdir: '{{ NGINX_DOCKER_SSL_PATH }}'
+          become: true
+          when: not dhparam_stat.stat.exists
       when: SSL_GEN == 'auto'
 
     - name: Apply headers config
