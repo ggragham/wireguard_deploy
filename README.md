@@ -25,11 +25,14 @@ Deployment is automated using Ansible, with configurations managed via `vars.yml
 All components are deployed using Docker images.
 
 ## Features
-- **WireGuard VPN**: Quick setup and configuration using the **wg-easy** Docker image.
-- **User-Friendly Web Interface**: Manage **VPN** users and settings through an intuitive interface.
-- **Nginx Reverse Proxy**: Secure access to the **WireGuard** web interface via **Nginx**.
-- **Optional 2FA with Authelia**: Enable two-factor authentication for enhanced security.
-- **Complete Automation with Ansible**: Install **Docker**, configure firewall rules, and set security parameters for reliable **VPN** operation.
+- **Secure Access**: Safely connect to your home lab's infrastructure from remote locations, ensuring your data remains private.
+- **Dockerized Components**: All services are run in isolated Docker containers for improved security and easier management.
+- **Custom Domain Names**: Pi-hole provides DNS resolution within your network, allowing for friendly domain names instead of remembering IP addresses.
+- **Ad Blocking**: Pi-hole also serves as an ad blocker, preventing intrusive advertisements from being served within your network.
+- **Two-Factor Authentication (2FA)**: Integration with Authelia for enhanced security during user authentication.
+- **Hardened System Configuration**: The deployment includes hardening configurations for the base system, adding an extra layer of security.
+- **Secure Browsing**: The VPN server can be utilized for secure web surfing (provided you trust the server provider).
+- **Simple Ansible Configuration**: Easily manageable configurations through `vars.yml` for a quick and easy setup.
 
 ## Prerequisites
 * Debian Linux server.
