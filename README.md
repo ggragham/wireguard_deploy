@@ -54,7 +54,7 @@ cp default.vars.yml vars.yml
 ```
 
 ### 3. Configuration
-Modify the `vars.yml` file to set your desired configurations. Make sure to specify all required parameters like domain names, user credentials, and network settings.
+Modify the `vars.yml` file to set your desired configurations. Make sure to specify all essential parameters like domain name, network settings, user credentials, etc.
 
 ### 4. Deploy
 Run the Ansible playbook:
