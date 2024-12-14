@@ -65,6 +65,7 @@ For further guidance and detailed information, refer to the following resources:
 * [WireGuard Official Documentation](https://www.wireguard.com/)
 * [wg-easy GitHub Repository](https://github.com/wg-easy/wg-easy)
 * [Authelia Documentation](https://www.authelia.com/configuration/)
+* [Pi-hole Documentation](https://docs.pi-hole.net/)
 * [Nginx Official Documentation](https://nginx.org/en/docs/)
 * [Docker Documentation](https://docs.docker.com/)
 * [Ansible Documentation](https://docs.ansible.com/)
