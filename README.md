@@ -20,7 +20,9 @@ Deploy Your Own Secure WireGuard VPN Server the Easy Way.
 - [Author](#author)
 
 ## Overview
-This project automates the deployment of a secure WireGuard VPN server using **wg-easy**. The Ansible playbook installs Docker, configures essential firewall rules, and integrates Nginx and Authelia for enhanced security, providing a streamlined setup for a reliable VPN environment.
+A deployment of a secure VPN service that provide access to your homelabs, smart homes, servers, and can also be used for safe web browsing (assuming trust in the server hosting the VPN). 
+Deployment is automated using Ansible, with configurations managed via `vars.yml`. 
+All components are deployed using Docker images.
 
 ## Features
 - **WireGuard VPN**: Quick setup and configuration using the **wg-easy** Docker image.
