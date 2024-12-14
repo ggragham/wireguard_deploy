@@ -35,9 +35,9 @@ All components are deployed using Docker images.
 - **Simple Ansible Configuration**: Easily manageable configurations through `vars.yml` for a quick and easy setup.
 
 ## Prerequisites
-* Debian Linux server.
-* Ansible installed on the control node.
-* SSH access to the server with sudo privileges.
+- A clean installation of the latest version of **Debian** or **Fedora** Linux.
+- **Ansible** installed on the control node.
+- SSH access to the server with **sudo** privileges.
 
 ## Getting Started
 
