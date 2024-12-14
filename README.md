@@ -3,7 +3,7 @@
 <p>
   <img src="https://img.shields.io/github/last-commit/ggragham/wireguard_deploy" alt="last commit">
   <img src="https://img.shields.io/github/repo-size/ggragham/wireguard_deploy" alt="repo size">
-  <a href="https://opensource.org/license/GPL-3.0"><img src="https://img.shields.io/github/license/ggragham/wireguard_deploy.svg" alt="license"></a>
+  <a href="https://opensource.org/license/GPL-3.0"><img src="https://img.shields.io/github/license/ggragham/wireguard_deploy" alt="license"></a>
 </p>
 
 Deploy Your Own Secure WireGuard VPN Server the Easy Way.
