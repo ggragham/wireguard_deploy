@@ -17,7 +17,6 @@ Role Variables
 ## External Environment Variables
 DOMAIN_NAME: example.com  # Domain name of your server.
 DNS_SERVER_INSTALL: true  # Enable or disable DNS Server installation.
-DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
 
 ## Essential Environment Variables
 WG_DOCKER_IMAGE_VERSION: latest  # WireGuard Docker image version.
