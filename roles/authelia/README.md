@@ -15,12 +15,13 @@ Role Variables
 ```yml
 ## External Environment Variables
 DOMAIN_NAME: example.com  # Domain name of your server.
+SSL_GEN: auto  # Source of SSL Certificate.
+SSL_EMAIL: test@example.com  # Email address used for SSL certificate registration or renewal notifications.
 
 ## Essential Environment Variables
 AUTHELIA_DOCKER_IMAGE_VERSION: latest  # Authelia Docker image version.
 AUTHELIA_USERNAME: user  # Authelia auth username.
 AUTHELIA_PASSWORD: password  # Authelia auth password.
-AUTHELIA_SESSION_DOMAIN: '{{ DOMAIN_NAME }}'  # The domain to protect.
 AUTHELIA_JWT_SECRET: example_of_jwt_secret  # Secret key used to sign and verify the JWT.
 AUTHELIA_SESSION_SECRET: example_of_session_secret  # Secret to encrypt the session data.
 AUTHELIA_STORAGE_ENCRYTPTION_KEY: example_of_storage_encryption_key  # Ecryption key used to encrypt data in db.
