@@ -14,7 +14,8 @@ Role Variables
 ```yml
 ## External Environment Variables
 DOMAIN_NAME: example.com  # Domain name of your server.
-DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.
+SSL_GEN: auto  # Source of SSL Certificate.
+SSL_EMAIL: test@example.com  # Email address used for SSL certificate registration or renewal notifications.
 
 ## Essential Environment Variables
 PIHOLE_DOCKER_IMAGE_VERSION: latest  # Pi-hole Docker image version.
@@ -27,7 +28,6 @@ CLOUDFLARED_TUNNEL_DNS_UPSTREAM: https://1.1.1.1/dns-query,https://1.0.0.1/dns-q
 
 ## Optional Environment Variables
 DNS_SERVER_INSTALL: true  # Enable or disable DNS Server installation.
-DNS_DOMAIN: dns.{{ DOMAIN_NAME }}  # URL of the DNS web control panel.
 PIHOLE_DNSSEC: true  # Enable or disable DNSSEC support.
 PIHOLE_QUERY_LOGGING: 'true'  # Toggle query logging.
 PIHOLE_CACHE_SIZE: 10000  # DNS cache size.
