@@ -43,8 +43,8 @@ All components are deployed using Docker images.
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/ggragham/wg_deploy.git
-cd wg_deploy
+git clone https://github.com/ggragham/wireguard_deploy.git
+cd wireguard_deploy
 ```
 
 ### 2. Create Configuration File
