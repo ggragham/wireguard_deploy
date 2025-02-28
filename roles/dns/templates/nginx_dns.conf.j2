@@ -13,17 +13,19 @@ server {
 
     set $upstream http://{{ PIHOLE_DOCKER_SERVICE_NAME }}:80;
 
-    location ^~ /admin {
-        include /etc/nginx/snippets/authelia-authrequest.conf;
-        include /etc/nginx/snippets/proxy.conf;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-NginX-Proxy true;
-        proxy_set_header Connection "";
-        proxy_pass_header X-Transmission-Session-Id;
-        add_header Front-End-Https on;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+    proxy_set_header Connection "";
+    proxy_pass_header X-Transmission-Session-Id;
+    add_header Front-End-Https on;
 
+    location ^~ /api {
+        proxy_pass $upstream;
+    }
+
+    location ^~ /admin {
         proxy_pass $upstream;
     }
 
@@ -38,6 +40,8 @@ server {
     include /etc/nginx/snippets/ssl-params.conf;
 
     include /etc/nginx/snippets/authelia-location.conf;
+    include /etc/nginx/snippets/authelia-authrequest.conf;
+    include /etc/nginx/snippets/proxy.conf;
 
 {% if SSL_GEN == 'auto'%}
     ssl_certificate /etc/letsencrypt/live/{{ DNS_DOMAIN }}/fullchain.pem;
