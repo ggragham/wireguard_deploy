@@ -71,7 +71,7 @@
         - '{{ NGINX_DOCKER_PATH }}'
 
     - name: Set Pi-hole admin password
-      shell: docker exec -it {{ PIHOLE_DOCKER_CONTAINER_NAME }} pihole admin password {{ PIHOLE_ADMIN_PASSWORD }}
+      shell: docker exec -it {{ PIHOLE_DOCKER_CONTAINER_NAME }} pihole setpassword {{ PIHOLE_ADMIN_PASSWORD }}
       no_log: true
 
   tags: dns
