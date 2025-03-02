@@ -13,6 +13,11 @@
         - '{{ PIHOLE_CONFIG_PATH }}'
       become: true
 
+    - name: Apply Pi-hole config
+      template:
+        src: pihole.toml.j2
+        dest: '{{ PIHOLE_CONFIG_PATH }}/pihole.toml'
+
     - name: Apply Pi-hole nginx config
       template:
         src: nginx_dns.conf.j2
