@@ -1,5 +1,6 @@
 ---
 ## External Environment Variables
+SERVER_IP: 0.0.0.0  # IP address of your server.
 DOMAIN_NAME: example.com  # Domain name of your server.
 DNS_SERVER_INSTALL: true  # Enable or disable DNS Server installation.
 DOCKER_SERVICES_NETWORK_NAME: wg-network  # Docker Network name for related services.

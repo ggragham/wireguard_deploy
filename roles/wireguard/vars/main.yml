@@ -1,5 +1,4 @@
 ---
-SERVER_HOST: '{{ ansible_host }}'  # Server hostname or IP.
 NGINX_DOCKER_PATH: /opt/nginx_docker  # Nginx Docker installation path.
 NGINX_SITES_ENABLED_PATH: '{{ NGINX_DOCKER_PATH }}/sites-enabled'  # Path for Nginx config to proxy WireGuard UI.
 

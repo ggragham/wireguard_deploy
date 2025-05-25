@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       LANG: {{ WG_LANG }}
-      WG_HOST: {{ SERVER_HOST }}
+      WG_HOST: {{ SERVER_IP }}
       # Optional:
       PASSWORD_HASH: {{ WG_UI_PASSWORD_HASH }}
       PORT: {{ WG_UI_PORT}}

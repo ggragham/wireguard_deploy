@@ -4,6 +4,7 @@
 ########################
 
 ## Essential Environment Variables
+SERVER_IP: 0.0.0.0  # IP address of your server.
 DOMAIN_NAME: example.com  # Nginx server domain.
 SSH_PORT: 22  # Port for SSH access.
 NETWORK_INTERFACE: eth0  # Default network interface.
