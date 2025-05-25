@@ -44,6 +44,15 @@
             owner: '{{ NGINX_USER }}'
             group: root
             mode: 0644
+            
+        - name: Apply acme_challenge snippet
+          copy:
+            src: acme_challenge.conf
+            dest: '{{ NGINX_SNIPPETS_PATH }}/acme_challenge.conf'
+            owner: '{{ NGINX_USER }}'
+            group: root
+            mode: 0644
+          when: SSL_GEN == 'auto'
 
         - name: Apply Nginx Docker Compose template
           template:
