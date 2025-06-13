@@ -13,6 +13,7 @@
       loop:
         - '{{ AUTHELIA_DOCKER_PATH }}'
         - '{{ AUTHELIA_CONFIG_PATH }}'
+        - '{{ AUTHELIA_ASSETS_PATH }}'
       become: true
 
     - name: Gen password hash
