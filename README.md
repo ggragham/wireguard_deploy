@@ -47,16 +47,23 @@ git clone https://github.com/ggragham/wireguard_deploy.git
 cd wireguard_deploy
 ```
 
-### 2. Create Configuration File
+### 2. Install Dependencies
+Install the Ansible roles listed in the `requirements.yml` file:
+```bash
+ansible-galaxy role install --force --role-file requirements.yml
+```
+The `--force` option reinstalls roles even if they are already installed, preventing version conflicts.
+
+### 3. Create Configuration File
 Copy the template configuration file to create your own:
 ```bash
 cp default.vars.yml vars.yml
 ```
 
-### 3. Configuration
+### 4. Configuration
 Modify the `vars.yml` file to set your desired configurations. Make sure to specify all essential parameters like domain name, network settings, user credentials, etc.
 
-### 4. Deploy
+### 5. Deploy
 Run the Ansible playbook:
 ```bash
 ansible-playbook playbook.yml
