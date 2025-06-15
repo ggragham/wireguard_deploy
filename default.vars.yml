@@ -10,10 +10,36 @@ SSH_PORT: 22  # Port for SSH access.
 NETWORK_INTERFACE: eth0  # Default network interface.
 TIMEZONE: UTC  # Set your server's timezone.
 
-## Optional Environment Variables
-FAIL2BAN_BANTIME: 5m  # Duration for which IPs are banned.
-FAIL2BAN_FINDTIME: 3m  # Time window to consider failed login attempts.
-FAIL2BAN_MAXRETRY: 5  # Number of allowed failed login attempts before banning IP.
+#############################
+###  Hardening role vars  ###
+#############################
+HARDENING_MISC_CONFIG_ENABLED: true  # Enable or disable miscellaneous hardning tasks.
+HARDENING_MISC_YESCTYPT_HOST_FACTOR: 8  # Yescrypt factor for password hashing difficulty.
+
+HARDENING_AUTH_FAILLOCK_CONFIG_ENABLED: true  # Enable or disable faillock.
+HARDENING_AUTH_FAILLOCK_MAX_ATTEMPTS: 3  # Maximum number of failed login attempts.
+HARDENING_AUTH_FAILLOCK_UNLOCK_TIME: 600  # Time (in seconds) to unlock after exceeding attempts.
+
+HARDENING_NETWORK_CONFIG_ENABLED: true  # Enable or disable network configuration.
+HARDENING_NETWORK_DISABLE_IPV6: true  # Enable or disable ipv6 stack disabling.
+
+HARDENING_DEBIAN_HARDENING_ENABLED: true  # Enable or disable Debian-based configuration.
+HARDENING_REDHAT_HARDENING_ENABLED: true  # Enable or disable RedHat-based configuration.
+
+HARDENING_SSH_CONFIG_ENABLED: true  # Enable or disable ssh configuration.
+HARDENING_SSH_REMOVE_ROOT_PASSWORD_ENABLED: true  # Enable or disable root password removal.
+
+HARDENING_FAIL2BAN_ENABLED: true  # Enable or disable fail2ban installation.
+HARDENING_FAIL2BAN_BANTIME: 5m  # Duration for which IPs are banned.
+HARDENING_FAIL2BAN_FINDTIME: 3m  # Time window to consider failed login attempts.
+HARDENING_FAIL2BAN_MAXRETRY: 5  # Number of allowed failed login attempts before banning IP.
+
+HARDENING_CHRONY_ENABLED: true  # Enable or disable chrony installation.
+
+HARDENING_FIREWALL_ENABLED: true  # Enable or disable firewall hardening.
+HARDENING_FIREWALL_BACKEND: firewalld  # Specify the backend for the firewall (options: ufw, firewalld, iptables).
+HARDENING_FIREWALL_RESET: false  # Enable or disable resetting the firewall rules.
+HARDENING_FIREWALL_OPEN_SSH_PORT: true  # Enable or disable opening the SSH port in the firewall.
 
 #########################
 ###  Nginx role vars  ###

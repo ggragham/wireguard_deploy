@@ -9,6 +9,9 @@
     - role: base
       tags: base
 
+    - role: hardening_ansible_role
+      tags: hardening
+
     - role: docker
       tags: docker
 
