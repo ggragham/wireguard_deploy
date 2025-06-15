@@ -15,6 +15,7 @@ TIMEZONE: UTC  # Set your server's timezone.
 #############################
 HARDENING_MISC_CONFIG_ENABLED: true  # Enable or disable miscellaneous hardning tasks.
 HARDENING_MISC_YESCRYPT_HOST_FACTOR: 8  # Yescrypt factor for password hashing difficulty.
+HARDENING_MISC_NODE_TYPE: server  # Specify the type of node (server or desktop).
 
 HARDENING_AUTH_FAILLOCK_CONFIG_ENABLED: true  # Enable or disable faillock.
 HARDENING_AUTH_FAILLOCK_MAX_ATTEMPTS: 3  # Maximum number of failed login attempts.
