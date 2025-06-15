@@ -44,7 +44,7 @@
             owner: '{{ NGINX_USER }}'
             group: root
             mode: 0644
-            
+
         - name: Apply acme_challenge snippet
           copy:
             src: acme_challenge.conf
