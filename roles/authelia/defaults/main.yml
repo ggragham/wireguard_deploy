@@ -10,6 +10,7 @@ SSL_EMAIL: test@example.com  # Email address used for SSL certificate registrati
 
 ## Essential Environment Variables
 AUTHELIA_DOCKER_IMAGE_VERSION: latest  # Authelia Docker image version.
+AUTHELIA_USER_EMAIL: example@gmail.com  # Authelia auth email.
 AUTHELIA_USERNAME: user  # Authelia auth username.
 AUTHELIA_PASSWORD: password  # Authelia auth password.
 AUTHELIA_SESSION_DOMAIN: '{{ DOMAIN_NAME }}'  # The domain to protect.
@@ -28,6 +29,14 @@ AUTHELIA_TOTP_DIGITS: 6  # 6, 8.
 AUTHELIA_TOTP_PERIOD: 30  # period in seconds a totp is valid for.
 AUTHELIA_NTP_PROVIDER: time.cloudflare.com  # address of the NTP server.
 AUTHELIA_NTP_DISABLE_FAILURE: 'false'  # true, false.
+AUTHELIA_SMTP_ENABLED: false  # Enable or disable SMTP configuration.
+## Configuration settings for SMTP.
+AUTHELIA_SMTP_CONFIG: |
+  smtp:
+    address: 'submission://smtp.gmail.com:587'
+    username: 'myaccount@gmail.com'
+    password: 'yourapppassword'
+    sender: 'admin@example.com'
 
 AUTHELIA_DOMAIN_LIST:  # List of domains to protect by Authelia.
   - '{{ DOMAIN_NAME }}'  # Main domain.

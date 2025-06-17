@@ -6,6 +6,7 @@
 users:
   {{ AUTHELIA_USERNAME }}:
     disabled: false
+    email: "{{ AUTHELIA_USER_EMAIL }}"
     displayname: "{{ AUTHELIA_USERNAME }}"
     password: {{ AUTHELIA_USER_PASSWORD_HASH }}
     groups:
