@@ -1,9 +1,14 @@
 ---
-- name: Get distro name
+- name: Set distro_name
   set_fact:
-    distro_name: '{{ (ansible_distribution | lower) }}'
+    distro_name: >-
+      {{ (
+        'fedora' if ansible_distribution | lower == 'fedora'
+        else 'centos' if ansible_distribution | lower in ['alma', 'almalinux', 'rocky', 'rockylinux']
+        else ansible_distribution | lower
+      ).strip() }}
 
-- name: Add repo to Fedora
+- name: Add repo to {{ ansible_distribution }}
   yum_repository:
     name: docker
     description: docker repository
@@ -12,7 +17,7 @@
     gpgcheck: true
     gpgkey: https://download.docker.com/linux/{{ distro_name }}/gpg
 
-- name: Install docker to Fedora
+- name: Install docker to {{ ansible_distribution }}
   dnf:
     name:
       - docker-ce

@@ -13,7 +13,7 @@
           when: ansible_os_family == 'Debian'
 
         - name: Install docker to RedHat-based system
-          include_tasks: fedora_install.yml
+          include_tasks: redhat_install.yml
           when: ansible_os_family == 'RedHat'
 
         - name: Create Docker group
