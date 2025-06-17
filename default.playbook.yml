@@ -1,0 +1,28 @@
+---
+- name: Deploy WireGuard VPN
+  hosts: vpn_server
+
+  vars_files:
+    - default.vars.yml
+
+  roles:
+    - role: base
+      tags: base
+
+    - role: hardening_ansible_role
+      tags: hardening
+
+    - role: docker
+      tags: docker
+
+    - role: nginx
+      tags: nginx
+
+    - role: authelia
+      tags: authelia
+
+    - role: dns
+      tags: dns
+
+    - role: wireguard
+      tags: wireguard
