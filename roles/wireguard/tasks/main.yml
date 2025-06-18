@@ -1,6 +1,10 @@
 ---
 - name: Install WireGuard VPN
   block:
+    - name: Load kernel modules required for WireGuard
+      import_tasks: load_modules.yml
+      when: ansible_os_family == "RedHat"
+
     - name: Create WireGuard directory struct
       file:
         path: '{{ directory }}'

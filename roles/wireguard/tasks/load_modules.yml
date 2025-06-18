@@ -1,0 +1,13 @@
+---
+- name: Ensure iptable_nat module is loaded
+  modprobe:
+    name: iptable_nat
+    state: present
+  become: true
+
+- name: Ensure iptable_nat loads on boot
+  lineinfile:
+    path: /etc/modules-load.d/iptable_nat.conf
+    create: true
+    line: iptable_nat
+  become: true
