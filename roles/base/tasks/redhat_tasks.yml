@@ -10,10 +10,20 @@
         cmd: |
           dnf config-manager --set-disabled fedora-cisco-openh264
           dnf clean all
+      when: ansible_distribution == 'Fedora'
 
     - name: Install python3-libdnf5
       shell: rpm -q python3-libdnf5 || dnf install -y python3-libdnf5
       changed_when: false
+      when:
+        - ansible_distribution == "Fedora"
+        - ansible_distribution_major_version | int >= 41
+
+    - name: Install python3-libdnf
+      shell: rpm -q python3-libdnf || dnf install -y python3-libdnf
+      changed_when: false
+      when:
+        - ansible_distribution in ["RedHat", "Alma", "AlmaLinux", "Rocky", "RockyLinux"]
 
     - name: Uninstall garbage
       dnf:
@@ -23,7 +33,7 @@
         allowerasing: true
         autoremove: true
 
-    - name: Update Fedora system
+    - name: Update RedHat-based system
       dnf:
         name: '*'
         state: latest
