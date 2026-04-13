@@ -2,8 +2,6 @@ server {
     server_name {{ DNS_DOMAIN }};
     listen 80;
 
-    include /etc/nginx/snippets/acme_challenge.conf;
-
     location / {
         return 301 https://$host$request_uri;
     }
@@ -49,8 +47,10 @@ server {
     include /etc/nginx/snippets/proxy.conf;
 
 {% if SSL_GEN == 'auto'%}
-    ssl_certificate /etc/letsencrypt/live/{{ DNS_DOMAIN }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ DNS_DOMAIN }}/privkey.pem;
-{% endif %}
+    acme_certificate letsencrypt;
 
+    ssl_certificate     $acme_certificate;
+    ssl_certificate_key $acme_certificate_key;
+    ssl_certificate_cache max=2;
+{% endif %}
 }

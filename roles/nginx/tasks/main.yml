@@ -45,10 +45,19 @@
             group: root
             mode: 0644
 
-        - name: Apply acme_challenge snippet
+        - name: Apply ACME issuer config
           copy:
-            src: acme_challenge.conf
-            dest: '{{ NGINX_SNIPPETS_PATH }}/acme_challenge.conf'
+            src: acme.conf
+            dest: '{{ NGINX_DOCKER_CONF_PATH }}/acme.conf'
+            owner: '{{ NGINX_USER }}'
+            group: root
+            mode: 0644
+          when: SSL_GEN == 'auto'
+
+        - name: Apply unprivileged Nginx Dockerfile with ngx_http_acme_module
+          copy:
+            src: Dockerfile.nginx-acme
+            dest: '{{ NGINX_DOCKER_PATH }}/Dockerfile.nginx-acme'
             owner: '{{ NGINX_USER }}'
             group: root
             mode: 0644

@@ -16,7 +16,7 @@ NGINX_DOCKER_IMAGE_VERSION: latest  # Nginx Docker image version.
 # SSL_CERT_NAME for the certificate,
 # SSL_KEY_NAME for the private key,
 SSL_GEN: auto
-SSL_EMAIL: test@example.com  # Email address used for SSL certificate registration or renewal notifications.
+# SSL_EMAIL: test@example.com  # Email address used for SSL certificate registration or renewal notifications.
 SSL_DH_NAME: dhparam.pem  # DH key filename placed in the assets/ directory.
 SSL_DH_KEY_SIZE: 2048  # Key size for the DH parameters.
 

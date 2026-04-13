@@ -1,0 +1,24 @@
+FROM nginxinc/nginx-unprivileged:mainline
+
+USER root
+
+RUN set -eux; \
+    apt-get update; \
+    apt-get install --no-install-recommends -y \
+        curl \
+        gnupg2 \
+        ca-certificates \
+        debian-archive-keyring; \
+    curl -fsSL https://nginx.org/keys/nginx_signing.key \
+        | gpg --dearmor -o /usr/share/keyrings/nginx-archive-keyring.gpg; \
+    . /etc/os-release; \
+    echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://nginx.org/packages/mainline/debian/ ${VERSION_CODENAME} nginx" \
+        > /etc/apt/sources.list.d/nginx.list; \
+    apt-get update; \
+    apt-get install --no-install-recommends -y nginx-module-acme; \
+    rm -rf /var/lib/apt/lists/*; \
+    install -d -o www-data -g www-data /var/lib/nginx/acme; \
+    grep -q 'ngx_http_acme_module.so' /etc/nginx/nginx.conf \
+        || sed -i '1iload_module modules/ngx_http_acme_module.so;' /etc/nginx/nginx.conf
+
+USER www-data

@@ -2,8 +2,6 @@ server {
     server_name {{ AUTHELIA_SESSION_URL }};
     listen 80;
 
-    include /etc/nginx/snippets/acme_challenge.conf;
-
     location / {
         return 301 https://$host$request_uri;
     }
@@ -34,8 +32,10 @@ server {
     include /etc/nginx/snippets/ssl-params.conf;
 
 {% if SSL_GEN == 'auto'%}
-    ssl_certificate /etc/letsencrypt/live/{{ AUTHELIA_SESSION_URL }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ AUTHELIA_SESSION_URL }}/privkey.pem;
-{% endif %}
+    acme_certificate letsencrypt;
 
+    ssl_certificate     $acme_certificate;
+    ssl_certificate_key $acme_certificate_key;
+    ssl_certificate_cache max=2;
+{% endif %}
 }
